@@ -38,6 +38,21 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 .bar button:hover{filter:brightness(1.12)}
 .side{position:absolute;top:-1px;left:-1px;background:#2a3441;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:0 0 8px 0;z-index:2}
 @media print{ .side{display:none} }
+.opt{
+  display:flex;align-items:flex-start;gap:10px;max-width:210mm;margin:14px auto 0;
+  background:#fff8e1;border:1px solid #e0b93c;border-radius:10px;padding:12px 16px;font-size:12.5px;line-height:1.75;
+}
+.opt input{width:18px;height:18px;margin-top:3px;flex:none;accent-color:#123a6b}
+.opt b{display:block;margin-bottom:2px}
+@media print{ .opt{display:none} }
+
+/* -------------------------------------------------------------------------
+   複合機向けモード
+   レーザー複合機はフチなし印刷ができず、用紙の端 4〜5mm は印刷できない。
+   全面の色ベタをそのまま送ると端が切れるうえ、ドライバ側で自動縮小がかかって
+   QRのサイズまで縮んでしまう。あらかじめ約95%に縮めて安全域に収めておく。
+   ------------------------------------------------------------------------- */
+body.mfp .sheet{ transform:scale(0.952); transform-origin:center center }
 
 /* =========================================================================
    A4 用紙
@@ -266,6 +281,14 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
     両面印刷は「<b>長辺とじ</b>」を選んでください。<br>
     袋文字の輪郭を正しく出すため、印刷は <b>Chrome または Edge</b> から行ってください。
   </p>
+  <label class="opt">
+    <input type="checkbox" id="mfp">
+    <span>
+      <b>複合機・レーザープリンタで印刷する（推奨）</b>
+      フチなし印刷ができない機種向けに、紙面全体を約95%に縮めて安全域に収めます。
+      端の色が切れる／勝手に縮小される／QRが小さくなる場合は、ここにチェックを入れてください。
+    </span>
+  </label>
 </div>
 
 <!-- ==================== 案A ==================== -->
@@ -662,14 +685,22 @@ document.querySelectorAll("[data-area]").forEach(function(el){
   el.textContent = AREA_PREF + AREA_CITY;
 });
 
+/* 複合機向けモードの切り替え（画面プレビューにも即反映する） */
+var mfpBox = document.getElementById("mfp");
+mfpBox.addEventListener("change", function(){
+  document.body.classList.toggle("mfp", mfpBox.checked);
+});
+
 /* 印刷：押された案の表・裏 2ページだけを出力する */
 document.querySelectorAll("[data-print]").forEach(function(btn){
   btn.addEventListener("click", function(){
-    document.body.className = "only-" + btn.dataset.print;
+    document.body.className = "only-" + btn.dataset.print + (mfpBox.checked ? " mfp" : "");
     window.print();
   });
 });
-window.addEventListener("afterprint", function(){ document.body.className = ""; });
+window.addEventListener("afterprint", function(){
+  document.body.className = mfpBox.checked ? "mfp" : "";
+});
 </script>
 </body>
 </html>
