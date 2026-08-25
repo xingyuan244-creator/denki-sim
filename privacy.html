@@ -7,21 +7,13 @@
 <meta name="robots" content="noindex">
 <style>
 :root{
+  color-scheme: light;
   --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f2f5f9;
   --border:#e0e5ec; --text:#101828; --muted:#5b6779;
   --trust:#123a6b; --trust-2:#2f6fd0; --trust-soft:#e9f0fa;
   --todo-bg:#fff3cd; --todo-fg:#7a5600; --todo-bd:#e0b93c;
   --shadow:0 1px 2px rgba(16,32,56,.05), 0 10px 28px rgba(16,32,56,.07);
   --radius:14px;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0c1017; --surface:#151b24; --surface-2:#1b232e;
-    --border:#2a3441; --text:#e8eef6; --muted:#98a5b7;
-    --trust:#7fb0f0; --trust-2:#9cc4fa; --trust-soft:#152437;
-    --todo-bg:#3a2f0c; --todo-fg:#ffd978; --todo-bd:#7a6320;
-    --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px rgba(0,0,0,.4);
-  }
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -33,7 +25,6 @@ body{
 .wrap{max-width:800px;margin:0 auto;padding:20px 16px 64px}
 header.site{display:flex;align-items:center;gap:10px;padding:2px 0 18px}
 .logo{width:30px;height:30px;border-radius:8px;background:var(--trust);display:grid;place-items:center;color:#fff;font-size:16px}
-@media (prefers-color-scheme: dark){ .logo{color:#0c1017} }
 header.site h1{font-size:14.5px;margin:0;font-weight:700}
 .back{margin-left:auto;font-size:12.5px;color:var(--trust-2);text-decoration:none;font-weight:700}
 .back:hover{text-decoration:underline}

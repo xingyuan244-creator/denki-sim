@@ -10,6 +10,7 @@
    デザイントークン
    ------------------------------------------------------------------------- */
 :root{
+  color-scheme: light;
   --bg:#ffffff; --alt:#f4f8fc; --card:#ffffff;
   --border:#dbe3ed; --text:#101a26; --muted:#5b6b7f;
   --navy:#0e3562; --blue:#1f6fd6; --blue-soft:#e9f1fb;
@@ -21,19 +22,6 @@
   --shadow-cta:0 6px 18px rgba(217,83,10,.3);
   --r:14px;
   --mono:"SFMono-Regular",Consolas,"Roboto Mono",monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0b1017; --alt:#111823; --card:#141c27;
-    --border:#26313f; --text:#e8eef6; --muted:#9aa8bb;
-    --navy:#8fbcf7; --blue:#7fb0f0; --blue-soft:#152437;
-    --cta:#ff8a3d; --cta-fg:#2a1403; --cta-hover:#ffa163;
-    --money:#4bc48d; --money-soft:#12291f;
-    --gold:#ffd978; --gold-soft:#2f2609; --gold-line:#7a6320;
-    --warn:#ff8b86;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.38);
-    --shadow-cta:0 6px 18px rgba(255,138,61,.22);
-  }
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -227,7 +215,6 @@ details .a{padding:15px 18px;font-size:13.5px;color:var(--muted);line-height:1.8
 .terms dt:first-child{margin-top:0}
 .terms dd{margin:2px 0 0;color:var(--muted);line-height:1.75}
 .todo{background:#fff;color:#7a5600;border:1px dashed var(--gold-line);border-radius:5px;padding:1px 7px;font-weight:900}
-@media (prefers-color-scheme: dark){ .todo{background:#1a1400;color:#ffd978} }
 .notice{border:2px solid var(--gold-line);background:var(--gold-soft);color:var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:24px;font-size:13px;line-height:1.8}
 .notice b{display:block;font-size:14px;margin-bottom:5px}
 
