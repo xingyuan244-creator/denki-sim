@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>チラシ3案（A4印刷用）｜かんたん電気代シミュレーション</title>
+<meta name="robots" content="noindex">
+<style>
+/* =========================================================================
+   共通トークン
+   ========================================================================= */
+:root{
+  --font-gothic:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+  --font-mincho:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","MS PMincho",serif;
+  --navy:#123a6b;
+  --gray:#5b6779;
+  --green:#0b7a52;
+  --orange:#d9530a;
+  --rule:#c9d1dc;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#e7eaee; color:#111;
+  font-family:var(--font-gothic);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---- 画面用のUI（印刷では消える） ---- */
+.ui{max-width:210mm;margin:0 auto;padding:18px 10px 6px}
+.ui h1{font-size:16px;margin:0 0 4px}
+.ui p{font-size:12.5px;color:#4a5565;margin:0 0 14px;line-height:1.8}
+.bar{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:#fff;border:1px solid #ccd3dc;border-radius:10px;padding:12px 16px;margin:22px auto 8px;max-width:210mm;
+}
+.bar .ttl{font-weight:800;font-size:14px}
+.bar .sub{font-size:12px;color:#5b6779;flex:1;min-width:180px}
+.bar button{
+  appearance:none;border:0;border-radius:8px;background:var(--navy);color:#fff;
+  font:inherit;font-weight:800;font-size:13px;padding:10px 18px;cursor:pointer;
+}
+.bar button:hover{filter:brightness(1.12)}
+
+/* =========================================================================
+   A4 用紙
+   ========================================================================= */
+@page{ size:A4; margin:0 }
+.sheet{
+  width:210mm; height:297mm;
+  background:#fff; margin:0 auto 24px; position:relative; overflow:hidden;
+  box-shadow:0 2px 18px rgba(16,32,56,.18);
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.sheet *{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+
+/* 共通フッター（注記） */
+.legal{
+  font-size:8pt; line-height:1.65; color:#555;
+}
+.company{ font-size:9.5pt; font-weight:700; color:#222; margin-bottom:2mm }
+
+/* QRの周囲は必ず5mm以上あける */
+.qr{ display:block; background:#fff; padding:0 }
+.qr img{ display:block; width:100%; height:100% }
+.qrwrap{ padding:5mm; background:#fff }
+
+/* =========================================================================
+   案A：通知型
+   ========================================================================= */
+#sheet-a{ padding:20mm 22mm 16mm; display:flex; flex-direction:column }
+#sheet-a .adlabel{
+  position:absolute; top:8mm; left:10mm;
+  font-size:8pt; color:#8b95a3; border:0.3mm solid #c3cad4; padding:0.6mm 2.2mm; letter-spacing:.3em;
+}
+#sheet-a .addressee{
+  border:0.4mm solid var(--navy); padding:6mm 8mm; margin-bottom:14mm;
+}
+#sheet-a .addressee .to{
+  font-family:var(--font-mincho); font-size:16pt; font-weight:600; color:var(--navy); letter-spacing:.04em;
+}
+#sheet-a .addressee .kind{
+  font-size:9pt; color:var(--gray); margin-top:2mm; letter-spacing:.08em;
+}
+#sheet-a .main{
+  font-family:var(--font-mincho); font-size:24pt; line-height:1.85; color:#111; margin-bottom:10mm; letter-spacing:.02em;
+}
+#sheet-a .body{ font-size:10.5pt; line-height:2.0; color:#333; margin-bottom:auto }
+#sheet-a .body p{ margin:0 0 4mm }
+#sheet-a .howto{
+  border-top:0.4mm solid var(--navy); border-bottom:0.4mm solid var(--navy);
+  padding:8mm 0; margin:10mm 0 8mm; display:flex; gap:9mm; align-items:center;
+}
+#sheet-a .howto .label{
+  font-family:var(--font-mincho); font-size:12pt; font-weight:600; color:var(--navy);
+  writing-mode:vertical-rl; letter-spacing:.3em; align-self:stretch;
+  border-right:0.3mm solid var(--rule); padding-right:4mm;
+}
+#sheet-a .howto .qrwrap{ flex:none }
+#sheet-a .howto .qr{ width:34mm; height:34mm }
+#sheet-a .howto .steps{ font-size:10.5pt; line-height:1.95 }
+#sheet-a .howto .steps .act{ font-size:12pt; font-weight:800; margin-bottom:2mm }
+#sheet-a .howto .steps ol{ margin:0; padding-left:1.3em; color:#333 }
+#sheet-a .howto .steps li{ margin-bottom:1mm }
+#sheet-a .howto .spec{ font-size:9.5pt; color:var(--gray); margin-top:3mm; letter-spacing:.02em }
+#sheet-a .foot{ border-top:0.3mm solid var(--rule); padding-top:4mm }
+
+/* =========================================================================
+   案B：請求書の余白型
+   ========================================================================= */
+#sheet-b{ display:flex; flex-direction:column }
+#sheet-b .band{
+  background:var(--navy); color:#fff; height:15mm; display:flex; align-items:center;
+  padding:0 14mm; font-size:15pt; font-weight:800; letter-spacing:.04em;
+}
+#sheet-b .invoice{
+  margin:10mm 14mm 0; border:0.4mm solid var(--rule); position:relative;
+}
+#sheet-b .invoice .hd{
+  display:flex; justify-content:space-between; border-bottom:0.3mm solid var(--rule);
+  padding:3mm 5mm; font-size:9pt; color:var(--gray); letter-spacing:.06em;
+}
+#sheet-b .invoice .grid{
+  position:absolute; inset:0; top:11mm; pointer-events:none; opacity:.5;
+  background:repeating-linear-gradient(to bottom, transparent 0 11mm, var(--rule) 11mm 11.25mm);
+}
+#sheet-b .figure{ padding:7mm 5mm 5mm; text-align:center; position:relative }
+#sheet-b .figure .cap{ font-size:11pt; color:#333; margin-bottom:1mm; font-weight:700 }
+#sheet-b .figure .big{
+  font-family:"SFMono-Regular",Consolas,"Roboto Mono",monospace;
+  font-size:66pt; font-weight:900; color:var(--green); line-height:1.05; letter-spacing:-.02em;
+}
+#sheet-b .figure .big .u{ font-family:var(--font-gothic); font-size:22pt; margin-left:2mm }
+#sheet-b .figure .per{ font-size:12pt; font-weight:800; color:var(--green); margin-top:1mm }
+#sheet-b .figure .ex{ font-size:9pt; color:var(--gray); margin-top:3mm }
+#sheet-b .flip{
+  margin:9mm 14mm 0; background:#f2f5f9; border-left:1.2mm solid var(--orange);
+  padding:6mm 7mm; font-size:14pt; font-weight:700; line-height:1.75; color:#111;
+}
+#sheet-b .cta{
+  margin:auto 14mm 0; display:flex; gap:8mm; align-items:center; padding-bottom:6mm;
+}
+#sheet-b .cta .lead{ flex:1 }
+#sheet-b .cta .arrow{ font-size:16pt; font-weight:900; color:var(--orange); margin-bottom:2mm }
+#sheet-b .cta .act{ font-size:14pt; font-weight:800; color:#111; line-height:1.6 }
+#sheet-b .cta .spec{ font-size:10pt; color:var(--gray); margin-top:2mm }
+#sheet-b .cta .qrwrap{ flex:none; border:1mm solid var(--orange) }
+#sheet-b .cta .qr{ width:32mm; height:32mm }
+#sheet-b .foot{ border-top:0.3mm solid var(--rule); margin:0 14mm; padding:4mm 0 10mm }
+
+/* =========================================================================
+   案C：質問ひとつ型
+   ========================================================================= */
+#sheet-c{ padding:26mm 22mm 14mm; display:flex; flex-direction:column; text-align:center }
+#sheet-c .to{
+  font-size:14pt; font-weight:800; color:var(--orange); letter-spacing:.04em; margin-bottom:34mm;
+}
+#sheet-c .q{
+  font-size:32pt; font-weight:800; line-height:1.75; color:#111; letter-spacing:.01em;
+}
+#sheet-c .a{ font-size:14pt; color:#333; margin-top:12mm; letter-spacing:.06em }
+#sheet-c .qrbox{ margin:auto auto 0; padding-bottom:10mm }
+#sheet-c .qr{ width:40mm; height:40mm; margin:0 auto }
+#sheet-c .act{ font-size:12pt; font-weight:800; margin-top:5mm }
+#sheet-c .spec{ font-size:10pt; color:var(--gray); margin-top:2mm }
+#sheet-c .foot{ margin-top:9mm }
+
+/* =========================================================================
+   印刷制御：「この案だけ印刷」で選ばれた1枚だけを出す
+   ========================================================================= */
+@media print{
+  body{ background:#fff }
+  .ui,.bar{ display:none !important }
+  .sheet{ box-shadow:none; margin:0; page-break-after:always }
+  .sheet:last-of-type{ page-break-after:auto }
+  body.only-a .sheet:not(#sheet-a){ display:none !important }
+  body.only-b .sheet:not(#sheet-b){ display:none !important }
+  body.only-c .sheet:not(#sheet-c){ display:none !important }
+}
+</style>
+</head>
+<body>
+
+<div class="ui">
+  <h1>チラシ3案（A4・印刷用）</h1>
+  <p>
+    各案の上のボタンから、その1案だけをA4 1枚に印刷できます。<br>
+    印刷ダイアログでは「背景のグラフィック」を有効にし、拡大縮小は「100%」または「実際のサイズ」を選んでください。
+  </p>
+</div>
+
+<!-- ==================== 案A：通知型 ==================== -->
+<div class="bar">
+  <span class="ttl">案A｜通知型</span>
+  <span class="sub">広告に見せないことで、広告回避を突破する。ポスティング・封書DM向き。</span>
+  <button data-print="a">この案だけ印刷</button>
+</div>
+
+<section class="sheet" id="sheet-a">
+  <div class="adlabel">広告</div>
+
+  <div class="addressee">
+    <div class="to" data-area-full>山梨県甲府市の事業者様へ</div>
+    <div class="kind">電気料金の契約内容に関するご案内</div>
+  </div>
+
+  <div class="main">
+    事業所の電気料金について、<br>
+    契約内容を見直すことで<br>
+    削減の余地がないか、ご確認いただけます。
+  </div>
+
+  <div class="body">
+    <p>
+      電気の契約は、こちらから見直さないかぎり自動で更新され続けます。
+      契約された当時のまま据え置かれているケースは少なくありません。
+    </p>
+    <p>
+      当社では、事業所向けの電気料金について、削減余地の目安をその場で確認できる
+      無料のシミュレーションをご用意しました。7つの質問にお答えいただくだけで、
+      年間の削減額の目安が表示されます。会社名やご連絡先のご入力は不要です。
+    </p>
+  </div>
+
+  <div class="howto">
+    <div class="label">確認方法</div>
+    <div class="qrwrap">
+      <div class="qr"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
+    </div>
+    <div class="steps">
+      <div class="act">スマホのカメラをかざすだけ</div>
+      <ol>
+        <li>スマートフォンのカメラを起動します</li>
+        <li>左のコードにかざします</li>
+        <li>表示されたリンクを開きます</li>
+      </ol>
+      <div class="spec">約30秒・全7問・登録不要・無料</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="company">運営：合同会社大和システム</div>
+    <div class="legal">
+      表示される金額はご入力内容に基づく簡易試算であり、実際の削減額をお約束するものではありません。
+      実際の料金は契約プラン・使用状況等により変動します。
+      本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 案B：請求書の余白型 ==================== -->
+<div class="bar">
+  <span class="ttl">案B｜請求書の余白型</span>
+  <span class="sub">数字を言語より先に処理させ、損失回避につなげる。折込・店頭配布向き。</span>
+  <button data-print="b">この案だけ印刷</button>
+</div>
+
+<section class="sheet" id="sheet-b">
+  <div class="band"><span data-area-full>山梨県甲府市</span>の事業者様へ！</div>
+
+  <div class="invoice">
+    <div class="hd">
+      <span>事業所向け 電気料金 削減余地シミュレーション</span>
+      <span>試 算 例</span>
+    </div>
+    <div class="grid"></div>
+    <div class="figure">
+      <div class="cap">年間で見込める削減額の目安</div>
+      <div class="big">&minus;240,000<span class="u">円</span></div>
+      <div class="per">／ 年</div>
+      <div class="ex">※ 月額120,000円の場合の試算例です。金額はご入力内容により異なります。</div>
+    </div>
+  </div>
+
+  <div class="flip">
+    これは、見直さなかった場合に<br>
+    1年間で余分に払うかもしれない金額でもあります。
+  </div>
+
+  <div class="cta">
+    <div class="lead">
+      <div class="arrow">&#9660;</div>
+      <div class="act">30秒で、<br>ご自身の事業所の金額がわかります。</div>
+      <div class="spec">スマホのカメラをかざすだけ<br>約30秒・全7問・登録不要・無料</div>
+    </div>
+    <div class="qrwrap">
+      <div class="qr"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="company">運営：合同会社大和システム</div>
+    <div class="legal">
+      表示される金額はご入力内容に基づく簡易試算であり、実際の削減額をお約束するものではありません。
+      実際の料金は契約プラン・使用状況等により変動します。
+      本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 案C：質問ひとつ型 ==================== -->
+<div class="bar">
+  <span class="ttl">案C｜質問ひとつ型</span>
+  <span class="sub">空白と問いで、情報密度の高いチラシの束から浮き上がらせる。他社チラシと並ぶ場所向き。</span>
+  <button data-print="c">この案だけ印刷</button>
+</div>
+
+<section class="sheet" id="sheet-c">
+  <div class="to" data-area-full>山梨県甲府市の事業者様へ！</div>
+
+  <div class="q">
+    いまの電気代、<br>
+    あと いくら下げられると<br>
+    思いますか？
+  </div>
+
+  <div class="a">答えは、30秒でわかります。</div>
+
+  <div class="qrbox">
+    <div class="qr"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
+    <div class="act">スマホのカメラをかざすだけ</div>
+    <div class="spec">約30秒・全7問・登録不要・無料</div>
+
+    <div class="foot">
+      <div class="company">運営：合同会社大和システム</div>
+      <div class="legal">
+        表示される金額はご入力内容に基づく簡易試算であり、実際の削減額をお約束するものではありません。
+        実際の料金は契約プラン・使用状況等により変動します。<br>
+        本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+"use strict";
+
+/* =========================================================================
+   対象地域：ここ2行を書き換えれば、3案すべての表記が入れ替わります
+   ========================================================================= */
+const AREA_PREF = "山梨県";
+const AREA_CITY = "甲府市";
+
+/* -------------------------------------------------------------------------
+   案ごとに文の形が違うため、要素の元テキストに含まれる地域名だけを差し替える。
+   （案A「〜の事業者様へ」／案B「〜」＋外側の「の事業者様へ！」／案C「〜の事業者様へ！」）
+   ------------------------------------------------------------------------- */
+document.querySelectorAll("[data-area-full]").forEach(function(el){
+  el.textContent = el.textContent.replace(/^山梨県甲府市/, AREA_PREF + AREA_CITY);
+});
+
+/* 印刷：押された案だけを出力する */
+document.querySelectorAll("[data-print]").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var key = btn.dataset.print;
+    document.body.className = "only-" + key;
+    window.print();
+  });
+});
+window.addEventListener("afterprint", function(){ document.body.className = ""; });
+</script>
+</body>
+</html>
