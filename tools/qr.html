@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QRコード作成ツール（社内用）｜かんたん電気代シミュレーション</title>
+<style>
+:root{
+  --bg:#f6f7f9; --surface:#fff; --surface-2:#f2f5f9; --border:#e0e5ec;
+  --text:#101828; --muted:#5b6779; --trust:#123a6b; --trust-soft:#e9f0fa;
+  --cta:#d9530a; --cta-fg:#fff; --warn:#b4231f; --radius:14px;
+  --mono:"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0c1017; --surface:#151b24; --surface-2:#1b232e; --border:#2a3441;
+    --text:#e8eef6; --muted:#98a5b7; --trust:#7fb0f0; --trust-soft:#152437;
+    --cta:#ff8a3d; --cta-fg:#2a1403; --warn:#ff8b86; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.75;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:19px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.cols{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:900px){ .cols{grid-template-columns:1fr 380px} }
+h2{font-size:14px;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:3px;height:15px;background:var(--trust);border-radius:2px}
+label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin:14px 0 5px}
+label:first-of-type{margin-top:0}
+input[type=text],select{width:100%;min-height:46px;border:1.5px solid var(--border);border-radius:10px;
+  background:var(--surface-2);color:inherit;font:inherit;padding:0 12px}
+input:focus,select:focus{outline:none;border-color:var(--trust);box-shadow:0 0 0 4px var(--trust-soft)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{font-size:12px;color:var(--muted);margin:6px 0 0}
+.btn{appearance:none;border:0;border-radius:11px;font:inherit;font-weight:800;cursor:pointer;
+  min-height:50px;padding:0 20px;background:var(--cta);color:var(--cta-fg)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--border);font-weight:600}
+.btn.ghost:hover{background:var(--surface-2);color:var(--text)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.preview{text-align:center;padding:20px;background:#fff;border:1px solid var(--border);border-radius:12px}
+.preview canvas{max-width:100%;height:auto;image-rendering:pixelated}
+.meta{font-size:12px;color:var(--muted);margin-top:12px;font-family:var(--mono)}
+.err{color:var(--warn);font-size:13px;font-weight:700;margin-top:10px;min-height:20px}
+.url-out{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:9px;padding:10px 12px;word-break:break-all;margin-top:10px}
+ul.tips{font-size:13px;color:var(--muted);padding-left:20px;margin:12px 0 0}
+ul.tips li{margin-bottom:6px}
+
+/* ===== 印刷テンプレート ===== */
+#sheet{display:none}
+@media print{
+  body{background:#fff}
+  .wrap{display:none}
+  #sheet{display:block}
+  @page{margin:0}
+}
+.pop{
+  width:210mm;height:297mm;padding:22mm 18mm;background:#fff;color:#111;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  page-break-after:always;font-family:inherit;
+}
+.pop .kicker{font-size:15pt;font-weight:800;color:#d9530a;letter-spacing:.06em;margin-bottom:6mm}
+.pop h3{font-size:30pt;line-height:1.35;margin:0 0 6mm;font-weight:900;letter-spacing:-.01em}
+.pop h3 em{font-style:normal;color:#0b7a52}
+.pop .desc{font-size:12.5pt;line-height:1.8;margin:0 0 10mm;color:#333}
+.pop .qrbox{border:3px solid #111;border-radius:6mm;padding:6mm;background:#fff}
+.pop .qrbox img{display:block;width:78mm;height:78mm}
+.pop .scan{font-size:13pt;font-weight:800;margin-top:6mm}
+.pop .bullets{margin:9mm 0 0;padding:0;list-style:none;font-size:11.5pt;color:#333}
+.pop .bullets li{margin-bottom:2.5mm}
+.pop .foot{margin-top:auto;font-size:9pt;color:#666;line-height:1.7}
+
+.cards{display:grid;grid-template-columns:repeat(2,91mm);grid-auto-rows:55mm;gap:0;
+  width:210mm;height:297mm;padding:13mm 14mm;background:#fff;color:#111;page-break-after:always}
+.mcard{border:.3mm dashed #bbb;padding:5mm;display:flex;gap:4mm;align-items:center}
+.mcard img{width:36mm;height:36mm;flex:none}
+.mcard .t{font-size:9.5pt;font-weight:900;line-height:1.45;margin-bottom:1.5mm}
+.mcard .d{font-size:7.5pt;color:#444;line-height:1.55}
+.mcard .u{font-size:6pt;color:#777;margin-top:1.5mm;word-break:break-all;font-family:monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>QRコード作成ツール（社内用）</h1>
+  <p class="sub">「かんたん電気代シミュレーション」へ誘導するQRコードと、印刷用の卓上POP・名刺サイズカードを作成します。外部サービスへの通信は行いません。</p>
+
+  <div class="cols">
+    <div class="card">
+      <h2>設定</h2>
+
+      <label for="base">シミュレーションサイトのURL</label>
+      <input type="text" id="base" value="https://example.com/denki-sim/" placeholder="https://...">
+      <p class="hint">サイトを公開したあとの実際のURLを入力してください。</p>
+
+      <div class="row2">
+        <div>
+          <label for="src">流入経路タグ（?src=）</label>
+          <select id="src">
+            <option value="pop">pop（店頭・卓上POP）</option>
+            <option value="meishi">meishi（名刺）</option>
+            <option value="flyer">flyer（チラシ・DM）</option>
+            <option value="poster">poster（掲示ポスター）</option>
+            <option value="invoice">invoice（請求書同封）</option>
+            <option value="">（付けない）</option>
+          </select>
+        </div>
+        <div>
+          <label for="ec">誤り訂正レベル</label>
+          <select id="ec">
+            <option value="M" selected>M（推奨・15%まで復元）</option>
+            <option value="L">L（7%まで復元・小さく作れる）</option>
+          </select>
+        </div>
+      </div>
+      <p class="hint">印刷して屋外・店頭に貼る場合は、汚れや擦れに強い <b>M</b> を推奨します。</p>
+
+      <label for="scale">モジュールサイズ（px）</label>
+      <input type="text" id="scale" value="12">
+      <p class="hint">印刷用なら 12 以上を推奨。周囲の余白（クワイエットゾーン）は4モジュール分を自動確保します。</p>
+
+      <div class="url-out" id="urlOut"></div>
+      <div class="err" id="err"></div>
+
+      <div class="btnrow">
+        <button class="btn" id="gen">QRコードを作成</button>
+        <button class="btn ghost" id="png">PNGを保存</button>
+        <button class="btn ghost" id="printPop">卓上POPを印刷（A4）</button>
+        <button class="btn ghost" id="printCard">名刺サイズを印刷（A4・8面）</button>
+      </div>
+
+      <h2 style="margin-top:28px">運用のコツ</h2>
+      <ul class="tips">
+        <li>QRは <b>25mm角以上</b> で印刷してください。読み取り距離の目安は「QRの一辺 × 10倍」です（30mm角なら約30cm）。</li>
+        <li>QRの周囲には必ず余白を残してください。枠線や文字が接すると読み取れなくなります。</li>
+        <li>QRの真下に「スマホのカメラをかざすだけ」と添えると読み取り率が上がります（行動のハードルを言語化する）。</li>
+        <li>設置場所ごとに <b>?src=</b> を変えると、どの経路から問い合わせが来たか送信メールで判別できます。</li>
+        <li>印刷前に必ず実機で読み取りテストをしてください。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>プレビュー</h2>
+      <div class="preview"><canvas id="cv" width="200" height="200"></canvas></div>
+      <div class="meta" id="meta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 印刷用シート -->
+<div id="sheet"></div>
+
+<script>
+"use strict";
+/* =========================================================================
+   QRコード生成（外部ライブラリ不使用）
+   対応：モデル2 / バイトモード(UTF-8) / バージョン1〜6 / 誤り訂正レベル L・M
+   URLの長さは L=最大106バイト、M=最大106バイト（6-M）まで。
+   ========================================================================= */
+var QR = (function(){
+
+  /* --- GF(256) 演算表（原始多項式 0x11D） --- */
+  var EXP = new Array(512), LOG = new Array(256);
+  (function(){
+    var x = 1;
+    for(var i=0;i<255;i++){ EXP[i]=x; LOG[x]=i; x<<=1; if(x & 0x100) x ^= 0x11D; }
+    for(var j=255;j<512;j++) EXP[j] = EXP[j-255];
+  })();
+  function mul(a,b){ return (a===0||b===0) ? 0 : EXP[LOG[a]+LOG[b]]; }
+
+  /* --- リード・ソロモン --- */
+  function genPoly(n){
+    var g=[1];
+    for(var i=0;i<n;i++){
+      var ng=[]; for(var k=0;k<=g.length;k++) ng[k]=0;
+      for(var j=0;j<g.length;j++){ ng[j] ^= g[j]; ng[j+1] ^= mul(g[j], EXP[i]); }
+      g=ng;
+    }
+    return g;
+  }
+  function ecc(data,n){
+    var g=genPoly(n), res=[]; for(var i=0;i<n;i++) res[i]=0;
+    for(i=0;i<data.length;i++){
+      var f = data[i] ^ res[0];
+      res.shift(); res.push(0);
+      if(f !== 0) for(var j=0;j<n;j++) res[j] ^= mul(g[j+1], f);
+    }
+    return res;
+  }
+
+  /* --- 版ごとの構成（ec:1ブロックのEC符号語数, b:ブロック数, d:1ブロックのデータ符号語数） --- */
+  var EC = {
+    L:{1:{ec:7,b:1,d:19}, 2:{ec:10,b:1,d:34}, 3:{ec:15,b:1,d:55},
+       4:{ec:20,b:1,d:80}, 5:{ec:26,b:1,d:108}, 6:{ec:18,b:2,d:68}},
+    M:{1:{ec:10,b:1,d:16}, 2:{ec:16,b:1,d:28}, 3:{ec:26,b:1,d:44},
+       4:{ec:18,b:2,d:32}, 5:{ec:24,b:2,d:43}, 6:{ec:16,b:4,d:27}}
+  };
+  var ALIGN = {1:null, 2:18, 3:22, 4:26, 5:30, 6:34};
+  /* 形式情報（JIS X 0510 の規定値。BCH計算済みの確定値を使用） */
+  var FORMAT = {
+    L:[0x77C4,0x72F3,0x7DAA,0x789D,0x662F,0x6318,0x6C41,0x6976],
+    M:[0x5412,0x5125,0x5E7C,0x5B4B,0x45F9,0x40CE,0x4F97,0x4AA0]
+  };
+
+  function utf8(s){
+    var out=[], e=encodeURIComponent(s);
+    for(var i=0;i<e.length;i++){
+      if(e.charAt(i)==="%"){ out.push(parseInt(e.substr(i+1,2),16)); i+=2; }
+      else out.push(e.charCodeAt(i));
+    }
+    return out;
+  }
+
+  function maskFn(k,i,j){
+    switch(k){
+      case 0: return (i+j)%2===0;
+      case 1: return i%2===0;
+      case 2: return j%3===0;
+      case 3: return (i+j)%3===0;
+      case 4: return (Math.floor(i/2)+Math.floor(j/3))%2===0;
+      case 5: return ((i*j)%2 + (i*j)%3)===0;
+      case 6: return (((i*j)%2 + (i*j)%3)%2)===0;
+      case 7: return (((i+j)%2 + (i*j)%3)%2)===0;
+    }
+    return false;
+  }
+
+  function build(ver,size,data,level,mask){
+    var m=[], r, c, i, j;
+    for(r=0;r<size;r++){ m[r]=[]; for(c=0;c<size;c++) m[r][c]=null; }
+
+    /* 位置検出パターン＋分離パターン */
+    function finder(fr,fc){
+      for(var y=-1;y<=7;y++) for(var x=-1;x<=7;x++){
+        var rr=fr+y, cc=fc+x;
+        if(rr<0||rr>=size||cc<0||cc>=size) continue;
+        var on = (0<=y&&y<=6&&(x===0||x===6)) || (0<=x&&x<=6&&(y===0||y===6)) || (2<=y&&y<=4&&2<=x&&x<=4);
+        m[rr][cc] = on ? 1 : 0;
+      }
+    }
+    finder(0,0); finder(0,size-7); finder(size-7,0);
+
+    /* 位置合わせパターン（版2〜6は1個） */
+    var a = ALIGN[ver];
+    if(a !== null){
+      for(i=-2;i<=2;i++) for(j=-2;j<=2;j++){
+        m[a+i][a+j] = (Math.max(Math.abs(i),Math.abs(j)) !== 1) ? 1 : 0;
+      }
+    }
+
+    /* タイミングパターン */
+    for(i=8;i<size-8;i++){ m[6][i] = (i%2===0)?1:0; m[i][6] = (i%2===0)?1:0; }
+
+    /* 形式情報 */
+    var fmt = FORMAT[level][mask];
+    for(i=0;i<15;i++){
+      var bit = (fmt >> i) & 1;
+      if(i<6) m[i][8] = bit;
+      else if(i<8) m[i+1][8] = bit;
+      else m[size-15+i][8] = bit;
+      if(i<8) m[8][size-1-i] = bit;
+      else if(i<9) m[8][15-i-1+1] = bit;
+      else m[8][15-i-1] = bit;
+    }
+    m[size-8][8] = 1;   /* 固定の暗モジュール */
+
+    /* データ配置（右下から上下ジグザグ、2列ずつ左へ） */
+    var inc=-1, row=size-1, bi=7, byi=0;
+    for(var col=size-1;col>0;col-=2){
+      if(col===6) col--;
+      while(true){
+        for(var cc2=0;cc2<2;cc2++){
+          if(m[row][col-cc2] === null){
+            var dark = 0;
+            if(byi < data.length) dark = (data[byi] >>> bi) & 1;
+            if(maskFn(mask,row,col-cc2)) dark ^= 1;
+            m[row][col-cc2] = dark;
+            bi--; if(bi === -1){ byi++; bi = 7; }
+          }
+        }
+        row += inc;
+        if(row < 0 || row >= size){ row -= inc; inc = -inc; break; }
+      }
+    }
+    for(r=0;r<size;r++) for(c=0;c<size;c++) if(m[r][c]===null) m[r][c]=0;
+    return m;
+  }
+
+  /* --- マスク評価（失点計算） --- */
+  function penalty(m,size){
+    var p=0,r,c,run,i;
+    for(r=0;r<size;r++){ run=1; for(c=1;c<size;c++){
+      if(m[r][c]===m[r][c-1]) run++; else { if(run>=5) p+=3+(run-5); run=1; } } if(run>=5) p+=3+(run-5); }
+    for(c=0;c<size;c++){ run=1; for(r=1;r<size;r++){
+      if(m[r][c]===m[r-1][c]) run++; else { if(run>=5) p+=3+(run-5); run=1; } } if(run>=5) p+=3+(run-5); }
+    for(r=0;r<size-1;r++) for(c=0;c<size-1;c++){
+      var s=m[r][c]+m[r][c+1]+m[r+1][c]+m[r+1][c+1];
+      if(s===0||s===4) p+=3; }
+    var p1=[1,0,1,1,1,0,1,0,0,0,0], p2=[0,0,0,0,1,0,1,1,1,0,1];
+    function scan(get){
+      var n=0;
+      for(var s=0;s+11<=size;s++){
+        var o1=true,o2=true;
+        for(var k=0;k<11;k++){ var v=get(s+k); if(v!==p1[k])o1=false; if(v!==p2[k])o2=false; }
+        if(o1)n++; if(o2)n++;
+      }
+      return n;
+    }
+    for(r=0;r<size;r++){ (function(rr){ p += 40*scan(function(x){ return m[rr][x]; }); })(r); }
+    for(c=0;c<size;c++){ (function(cc){ p += 40*scan(function(x){ return m[x][cc]; }); })(c); }
+    var dark=0; for(r=0;r<size;r++) for(c=0;c<size;c++) dark+=m[r][c];
+    p += Math.floor(Math.abs(dark*100/(size*size) - 50)/5)*10;
+    return p;
+  }
+
+  function make(text, level){
+    level = (level === "L") ? "L" : "M";
+    var bytes = utf8(text), tbl = EC[level], ver = 0, v;
+    for(v=1;v<=6;v++){ if(bytes.length <= tbl[v].d*tbl[v].b - 2){ ver=v; break; } }
+    if(!ver) throw new Error("URLが長すぎます（最大 " + (tbl[6].d*tbl[6].b - 2) + " バイト）。短縮URLをご利用ください。");
+
+    var cfg = tbl[ver], totalData = cfg.d*cfg.b, bits=[], i, j;
+    function put(val,len){ for(var k=len-1;k>=0;k--) bits.push((val>>k)&1); }
+    put(4,4); put(bytes.length,8);
+    for(i=0;i<bytes.length;i++) put(bytes[i],8);
+    for(i=0;i<4 && bits.length < totalData*8;i++) bits.push(0);
+    while(bits.length % 8) bits.push(0);
+    var cw=[];
+    for(i=0;i<bits.length;i+=8){ var b=0; for(j=0;j<8;j++) b=(b<<1)|bits[i+j]; cw.push(b); }
+    var pads=[0xEC,0x11], pi=0;
+    while(cw.length < totalData) cw.push(pads[pi++ % 2]);
+
+    var db=[], eb=[];
+    for(i=0;i<cfg.b;i++){ var blk=cw.slice(i*cfg.d,(i+1)*cfg.d); db.push(blk); eb.push(ecc(blk,cfg.ec)); }
+    var out=[];
+    for(i=0;i<cfg.d;i++) for(j=0;j<cfg.b;j++) out.push(db[j][i]);
+    for(i=0;i<cfg.ec;i++) for(j=0;j<cfg.b;j++) out.push(eb[j][i]);
+
+    var size = 17 + 4*ver, best=null, bestScore=Infinity, bestMask=0;
+    for(var mk=0;mk<8;mk++){
+      var m = build(ver,size,out,level,mk);
+      var s = penalty(m,size);
+      if(s < bestScore){ bestScore=s; best=m; bestMask=mk; }
+    }
+    return { matrix:best, size:size, version:ver, level:level, mask:bestMask, bytes:bytes.length };
+  }
+
+  /* --- 描画 --- */
+  function toCanvas(canvas, qr, scale, quiet){
+    quiet = (quiet == null) ? 4 : quiet;
+    var n = qr.size + quiet*2;
+    canvas.width = n*scale; canvas.height = n*scale;
+    var g = canvas.getContext("2d");
+    g.fillStyle = "#ffffff"; g.fillRect(0,0,canvas.width,canvas.height);
+    g.fillStyle = "#000000";
+    for(var r=0;r<qr.size;r++) for(var c=0;c<qr.size;c++){
+      if(qr.matrix[r][c]) g.fillRect((c+quiet)*scale, (r+quiet)*scale, scale, scale);
+    }
+    return canvas;
+  }
+
+  return { make:make, toCanvas:toCanvas };
+})();
+
+/* =========================================================================
+   画面制御
+   ========================================================================= */
+var $ = function(id){ return document.getElementById(id); };
+var current = null, currentUrl = "";
+
+function buildUrl(){
+  var base = $("base").value.trim();
+  var src = $("src").value;
+  if(!base) return "";
+  if(!src) return base;
+  return base + (base.indexOf("?") >= 0 ? "&" : "?") + "src=" + encodeURIComponent(src);
+}
+
+function generate(){
+  var err = $("err"); err.textContent = "";
+  currentUrl = buildUrl();
+  $("urlOut").textContent = currentUrl || "（URLを入力してください）";
+  if(!currentUrl){ err.textContent = "URLを入力してください。"; return; }
+  var scale = parseInt($("scale").value, 10); if(!(scale > 0)) scale = 12;
+  try{
+    current = QR.make(currentUrl, $("ec").value);
+    QR.toCanvas($("cv"), current, scale, 4);
+    $("meta").textContent =
+      "バージョン " + current.version + " / レベル " + current.level +
+      " / マスク " + current.mask + " / " + current.size + "×" + current.size + "モジュール / " +
+      current.bytes + "バイト";
+  }catch(e){
+    err.textContent = e.message;
+    current = null;
+  }
+}
+
+function dataUrl(scale){
+  var tmp = document.createElement("canvas");
+  QR.toCanvas(tmp, current, scale || 12, 4);
+  return tmp.toDataURL("image/png");
+}
+
+$("gen").onclick = generate;
+["base","src","ec","scale"].forEach(function(id){
+  $(id).addEventListener("change", generate);
+  $(id).addEventListener("input", generate);
+});
+
+$("png").onclick = function(){
+  if(!current){ generate(); if(!current) return; }
+  var a = document.createElement("a");
+  a.href = dataUrl(20);
+  a.download = "qr-denki-sim-" + ($("src").value || "plain") + ".png";
+  a.click();
+};
+
+/* ---- 印刷テンプレート ---- */
+function printSheet(html){
+  if(!current){ generate(); if(!current) return; }
+  $("sheet").innerHTML = html;
+  window.print();
+}
+
+$("printPop").onclick = function(){
+  if(!current){ generate(); if(!current) return; }
+  var img = dataUrl(20);
+  printSheet(
+    '<div class="pop">' +
+      '<div class="kicker">店舗・事業所オーナーさま へ</div>' +
+      '<h3>いまの電気代、<br><em>あと いくら下げられるか</em>。</h3>' +
+      '<p class="desc">7つの質問に答えるだけ。<br>その場で、年間の削減額の目安がわかります。</p>' +
+      '<div class="qrbox"><img src="' + img + '" alt="QRコード"></div>' +
+      '<div class="scan">&#128241; スマホのカメラをかざすだけ</div>' +
+      '<div style="font-size:11pt;margin-top:3mm;color:#555">かんたん電気代シミュレーション</div>' +
+      '<ul class="bullets">' +
+        '<li>所要時間 約30秒／全7問</li>' +
+        '<li>会員登録・費用は一切かかりません</li>' +
+        '<li>会社名やご連絡先の入力なしで結果が出ます</li>' +
+      '</ul>' +
+      '<p class="foot">本シミュレーションはご入力金額をもとにした簡易試算であり、実際の削減額をお約束するものではありません。<br>' +
+      '実際の料金は契約プラン・使用状況等により変動します。本シミュレーションは電力契約の勧誘・媒介を目的とするものではありません。</p>' +
+    '</div>'
+  );
+};
+
+$("printCard").onclick = function(){
+  if(!current){ generate(); if(!current) return; }
+  var img = dataUrl(16);
+  var one =
+    '<div class="mcard">' +
+      '<img src="' + img + '" alt="QRコード">' +
+      '<div>' +
+        '<div class="t">電気代、あと いくら<br>下げられますか？</div>' +
+        '<div class="d">かんたん電気代シミュレーション<br>7つの質問・約30秒で<br>年間削減額の目安がわかります。<br>登録不要／無料</div>' +
+        '<div class="u">' + currentUrl.replace(/^https?:\/\//,"") + '</div>' +
+      '</div>' +
+    '</div>';
+  var cells = ""; for(var i=0;i<8;i++) cells += one;
+  printSheet('<div class="cards">' + cells + '</div>');
+};
+
+generate();
+</script>
+</body>
+</html>
