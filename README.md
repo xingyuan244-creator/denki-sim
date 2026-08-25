@@ -89,3 +89,16 @@ URLに `?src=` を付けると、送信メールに経路が記録されます�
 
 本シミュレーションは入力金額に基づく簡易試算であり、実際の削減額を保証するものではありません。
 電力契約の勧誘・媒介を目的とするものではありません。
+
+## 生成済みQRコード
+
+`qr/` に、公開URL向けのQRコードを印刷用SVG（ベクター・拡大しても劣化しない）で同梱しています。
+
+| ファイル | リンク先 |
+|---|---|
+| `qr/denki-sim-plain.svg` | `https://xingyuan244-creator.github.io/denki-sim/` |
+| `qr/denki-sim-pop.svg` | 同上 `?src=pop`（店頭・卓上POP用） |
+| `qr/denki-sim-meishi.svg` | 同上 `?src=meishi`（名刺用） |
+
+他の経路タグや、印刷レイアウト込みのPOP・名刺カードは `tools/qr.html` をブラウザで開いて作成してください。
+`tools/make-qr-svg.ps1` は、`tools/qr.html` が出力したモジュール行列からSVGを書き出すための補助スクリプトです。
