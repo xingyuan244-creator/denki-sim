@@ -257,14 +257,16 @@ hr.sep{border:0;border-top:1px solid var(--border);margin:24px 0}
      漢字だけの名称より、ひらがな始まりのほうが視認・理解の負荷が低く「軽い」と知覚される。 */
 var SITE_NAME = "かんたん電気代シミュレーション";
 
-/* 通知先メールアドレス */
-var NOTIFY_EMAIL = "yamato.eigyousupport@gmail.com";
-
 /* Google Apps Script ウェブアプリのURL。
-   ここを設定すると、フォーム送信が自動で NOTIFY_EMAIL 宛にメール送信されます。
-   未設定（空文字）の場合は、送信者のメールソフトを起動する mailto: 方式に自動で切り替わります。
-   設定手順は同梱の gas-mail.gs を参照してください。 */
-var SUBMIT_ENDPOINT = "";
+   送信内容はここへPOSTされ、GAS側から通知先メールアドレスへ転送されます。
+   通知先アドレスは公開ソースに残さないよう、GAS側（gas-mail.gs の NOTIFY_TO）で管理しています。 */
+var SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbx7UgAvTYaHWKz_QczeaGG5vhfiT2WfKyFWDw7uZVs458pRNusiBDnrSmL6LTn540fJFg/exec";
+
+/* mailto: フォールバック用の通知先アドレス。
+   SUBMIT_ENDPOINT が設定されている間は使用されないため、
+   迷惑メール対策として意図的に空にしています。
+   GASを停止して mailto: 方式に戻す場合のみ、ここにアドレスを記入してください。 */
+var NOTIFY_EMAIL = "";
 
 /* 流入経路の記録：QRコードに ?src=... を付けておくと、送信内容に経路が記録されます。
    例）店頭POP → ?src=pop ／ 名刺 → ?src=meishi ／ チラシ → ?src=flyer  */
