@@ -53,6 +53,17 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 
 .stroke{ -webkit-text-stroke:2.4mm #fff; paint-order:stroke fill }
 
+/* -------------------------------------------------------------------------
+   ハードルの低さを示すバッジ。
+   「シミュレーションできる」は手段であって、読み手の得ではない。
+   バッジで手軽さ（かんたん・30秒）を、大見出しで得（いくら下がるか）を担当させ、
+   0.5秒の一瞥で「ラクそう」と「自分に得」が同時に伝わるようにする。
+   ------------------------------------------------------------------------- */
+.badge{
+  display:inline-block; border-radius:99mm; font-size:12pt; font-weight:900;
+  padding:1.6mm 6mm; letter-spacing:.02em; line-height:1.4;
+}
+
 /* 地域の呼びかけ帯 */
 .callout{
   display:flex; align-items:center; justify-content:center; gap:3mm; flex:none;
@@ -80,12 +91,11 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
    ========================================================================= */
 #sheet-a .callout{ background:var(--red) }
 #sheet-a .callout .mark{ color:var(--red) }
-#sheet-a .hero{ background:var(--yellow); padding:9mm 12mm 8mm; text-align:center }
-#sheet-a .hero .kicker{ font-size:13pt; font-weight:900; color:#7a4a00; margin-bottom:3mm }
-#sheet-a .hero .kicker b{ background:#fff; padding:0.8mm 2.5mm; border-radius:1mm; color:var(--red) }
-#sheet-a .hero .catch{ font-size:41pt; font-weight:900; line-height:1.28; color:var(--red); letter-spacing:-.01em }
-#sheet-a .hero .catch .sm{ font-size:27pt }
-#sheet-a .hero .sub{ font-size:13pt; font-weight:800; color:#4a3000; margin-top:4mm }
+#sheet-a .hero{ background:var(--yellow); padding:7mm 12mm 7mm; text-align:center }
+#sheet-a .badge{ background:#fff; color:var(--red); margin-bottom:3.5mm }
+#sheet-a .hero .catch1{ font-size:29pt; font-weight:900; line-height:1.2; color:var(--red) }
+#sheet-a .hero .catch2{ font-size:36pt; font-weight:900; line-height:1.25; color:var(--red); letter-spacing:-.02em }
+#sheet-a .hero .sub{ font-size:12.5pt; font-weight:800; color:#4a3000; margin-top:3.5mm }
 #sheet-a .check{ margin:7mm 12mm 0; border:1.1mm solid var(--red); border-radius:2.5mm; overflow:hidden }
 #sheet-a .check .hd{ background:var(--red); color:#fff; font-size:13pt; font-weight:900; padding:2.5mm 5mm; letter-spacing:.03em }
 #sheet-a .check ul{ list-style:none; margin:0; padding:4.5mm 6mm }
@@ -97,10 +107,10 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   display:flex; align-items:center; justify-content:center;
 }
 #sheet-a .check .tail{ background:#fff5cc; font-size:11.5pt; font-weight:800; padding:3mm 6mm; border-top:0.4mm dashed var(--red) }
-#sheet-a .num{ margin:6mm 12mm 0; text-align:center }
-#sheet-a .num .lb{ font-size:12pt; font-weight:800 }
-#sheet-a .num .big{ font-family:var(--mono); font-size:52pt; font-weight:900; color:var(--red); line-height:1.1; letter-spacing:-.02em }
-#sheet-a .num .big .u{ font-family:var(--font-gothic); font-size:20pt }
+#sheet-a .num{ margin:5mm 12mm 0; text-align:center }
+#sheet-a .num .lb{ font-size:11.5pt; font-weight:800 }
+#sheet-a .num .big{ font-family:var(--mono); font-size:40pt; font-weight:900; color:var(--red); line-height:1.12; letter-spacing:-.02em }
+#sheet-a .num .big .u{ font-family:var(--font-gothic); font-size:17pt }
 #sheet-a .num .ex{ font-size:8.5pt; color:#5a5a5a; margin-top:1.5mm }
 #sheet-a .qrzone{ margin:auto 12mm 0; background:var(--yellow); border-radius:3mm; padding:6mm 7mm }
 #sheet-a .qrzone .qrlead .act{ color:#7a1000 }
@@ -111,8 +121,9 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
    ========================================================================= */
 #sheet-b .callout{ background:var(--navy) }
 #sheet-b .callout .mark{ color:var(--navy) }
-#sheet-b .hero{ padding:7mm 14mm 4mm; text-align:center }
-#sheet-b .hero .catch{ font-size:25pt; font-weight:900; line-height:1.45; color:var(--navy) }
+#sheet-b .hero{ padding:6mm 14mm 4mm; text-align:center }
+#sheet-b .badge{ background:var(--navy); color:#fff; margin-bottom:3mm }
+#sheet-b .hero .catch{ font-size:25pt; font-weight:900; line-height:1.4; color:var(--navy) }
 #sheet-b .hero .catch em{ font-style:normal; color:var(--orange) }
 #sheet-b .hero .sub{ font-size:11pt; font-weight:700; color:#3d4a5c; margin-top:2.5mm }
 #sheet-b .compare{ margin:4mm 14mm 0; border:0.5mm solid #d8dee7; border-radius:3mm; padding:5mm 6mm }
@@ -144,8 +155,9 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
    ========================================================================= */
 #sheet-c .callout{ background:var(--orange) }
 #sheet-c .callout .mark{ color:var(--orange) }
-#sheet-c .talk{ padding:7mm 13mm 0 }
-#sheet-c .bubble{ position:relative; border-radius:5mm; padding:5mm 6mm; font-size:18pt; font-weight:900; line-height:1.5 }
+#sheet-c .talk{ padding:6mm 13mm 0 }
+#sheet-c .badge{ background:var(--orange); color:#fff; margin-bottom:5mm }
+#sheet-c .bubble{ position:relative; border-radius:5mm; padding:4.5mm 6mm; font-size:17pt; font-weight:900; line-height:1.5 }
 #sheet-c .bubble.q{ background:#e8f4f8; color:#0b5566; margin-right:22mm }
 #sheet-c .bubble.q::after{ content:""; position:absolute; left:12mm; bottom:-5mm; border:5mm solid transparent; border-top-color:#e8f4f8; border-bottom:0 }
 #sheet-c .bubble.a{ background:var(--orange); color:#fff; margin:11mm 0 0 22mm }
@@ -175,7 +187,8 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 .back .callout{ background:var(--bk) }
 .back .callout .mark{ color:var(--bk) }
 .back .bhead{ text-align:center; padding:6mm 13mm 0 }
-.back .bhead .t{ font-size:23pt; font-weight:900; line-height:1.32; color:var(--bk) }
+.back .badge{ background:var(--bk); color:#fff; margin-bottom:3mm }
+.back .bhead .t{ font-size:21pt; font-weight:900; line-height:1.32; color:var(--bk) }
 .back .bhead .s{ font-size:11pt; font-weight:700; color:#3d4a5c; margin-top:2.5mm }
 
 .phones{ display:flex; align-items:flex-start; justify-content:center; gap:3mm; margin:5mm 11mm 0 }
@@ -266,10 +279,16 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   <div class="side">案A・表</div>
   <div class="callout"><span class="mark">重要</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
+  <!-- 大見出しの差し替え候補（catch1／catch2 を入れ替えて使う）
+       ・かんたん30秒！   ／ 電気代シミュレーション      手軽さ主体。いちばん無難
+       ・30秒でわかる     ／ うちの電気代、高い？安い？  問いかけ主体
+       ・まずは30秒       ／ 電気代のセルフチェック      行動主体
+       ・スマホで30秒     ／ 電気代、調べてみませんか？  やわらかめ            -->
   <div class="hero">
-    <div class="kicker">毎月かならず出ていく固定費。<b>いちばん見直しやすいのは</b></div>
-    <div class="catch stroke">電気代<span class="sm">です。</span></div>
-    <div class="sub">契約を見直すだけ。設備工事も、電気を止めることもありません。</div>
+    <div class="badge">スマホで選ぶだけ・登録なし</div>
+    <div class="catch1 stroke">かんたん30秒！</div>
+    <div class="catch2 stroke">電気代シミュレーション</div>
+    <div class="sub">いまの電気代が高いのか安いのか、まずは知ることから。</div>
   </div>
 
   <div class="check">
@@ -283,7 +302,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   </div>
 
   <div class="num">
-    <div class="lb">年間で、これだけ変わる試算例もあります</div>
+    <div class="lb">シミュレーション結果の一例</div>
     <div class="big">&minus;240,000<span class="u">円</span></div>
     <div class="ex">※ 月額120,000円の場合の試算例です。金額はご入力内容により異なります。</div>
   </div>
@@ -292,8 +311,8 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
     <div class="qrblock">
       <div class="qrframe"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
       <div class="qrlead">
-        <div class="act">スマホのカメラを<br>かざすだけ</div>
-        <div class="spec">約30秒・全7問<br>登録不要・無料</div>
+        <div class="act">まずは30秒、<br>試してみませんか？</div>
+        <div class="spec">スマホのカメラをかざすだけ<br>約30秒・全7問・登録不要・無料</div>
       </div>
     </div>
   </div>
@@ -313,6 +332,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   <div class="callout"><span class="mark">重要</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="bhead">
+    <div class="badge">かんたん30秒！ 電気代シミュレーション</div>
     <div class="t">かざすと、<br>こうなります。</div>
     <div class="s">読み取ったあとに何が起きるか、先にお見せします。</div>
   </div>
@@ -387,8 +407,9 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   <div class="callout"><span class="mark">ご案内</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="hero">
-    <div class="catch">いまの電気代、<br><em>あと いくら下げられますか？</em></div>
-    <div class="sub">7つの質問に答えるだけ。その場で、年間の削減額の目安が出ます。</div>
+    <div class="badge">かんたん30秒・全7問・登録不要</div>
+    <div class="catch">30秒でわかる<br><em>電気代シミュレーション</em></div>
+    <div class="sub">うちの電気代は高いのか、安いのか。7つの質問で確かめられます。</div>
   </div>
 
   <div class="compare">
@@ -444,6 +465,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   <div class="callout"><span class="mark">ご案内</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="bhead">
+    <div class="badge">かんたん30秒！ 電気代シミュレーション</div>
     <div class="t">かざすと、<br>こうなります。</div>
     <div class="s">読み取ったあとに何が起きるか、先にお見せします。</div>
   </div>
@@ -518,6 +540,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   <div class="callout"><span class="mark">お知らせ</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="talk">
+    <div style="text-align:center"><div class="badge">かんたん30秒！ 電気代シミュレーション</div></div>
     <div class="bubble q">電気代、<br>去年より上がっていませんか？</div>
     <div class="bubble a">その契約、<br>まだ下げられるかもしれません。</div>
     <div class="note">
@@ -533,7 +556,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   </div>
 
   <div class="num">
-    <div class="lb">年間で、これだけ変わる試算例もあります</div>
+    <div class="lb">シミュレーション結果の一例</div>
     <div class="big">&minus;240,000<span class="u">円</span></div>
     <div class="ex">※ 月額120,000円の場合の試算例です。金額はご入力内容により異なります。</div>
   </div>
@@ -563,6 +586,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   <div class="callout"><span class="mark">お知らせ</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="bhead">
+    <div class="badge">かんたん30秒！ 電気代シミュレーション</div>
     <div class="t">かざすと、<br>こうなります。</div>
     <div class="s">読み取ったあとに何が起きるか、先にお見せします。</div>
   </div>
