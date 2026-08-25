@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ポスティング用チラシ3案（A4印刷用）｜かんたん電気代シミュレーション</title>
+<title>ポスティング用チラシ3案（A4両面）｜かんたん電気代シミュレーション</title>
 <meta name="robots" content="noindex">
 <style>
 /* =========================================================================
@@ -11,7 +11,6 @@
    ========================================================================= */
 :root{
   --font-gothic:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
-  --font-mincho:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","MS PMincho",serif;
   --mono:"SFMono-Regular",Consolas,"Roboto Mono",monospace;
   --red:#d0021b;
   --yellow:#ffd60a;
@@ -27,16 +26,18 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 
 /* ---- 画面用UI（印刷では消える） ---- */
 .ui{max-width:210mm;margin:0 auto;padding:18px 10px 0}
-.ui h1{font-size:16px;margin:0 0 4px}
-.ui p{font-size:12.5px;color:#4a5565;margin:0;line-height:1.8}
+.ui h1{font-size:16px;margin:0 0 6px}
+.ui p{font-size:12.5px;color:#4a5565;margin:0 0 6px;line-height:1.8}
 .bar{
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  background:#fff;border:1px solid #ccd3dc;border-radius:10px;padding:12px 16px;margin:24px auto 8px;max-width:210mm;
+  background:#fff;border:1px solid #ccd3dc;border-radius:10px;padding:12px 16px;margin:26px auto 8px;max-width:210mm;
 }
 .bar .ttl{font-weight:800;font-size:14px}
 .bar .sub{font-size:12px;color:#5b6779;flex:1;min-width:200px}
 .bar button{appearance:none;border:0;border-radius:8px;background:var(--navy);color:#fff;font:inherit;font-weight:800;font-size:13px;padding:10px 18px;cursor:pointer}
 .bar button:hover{filter:brightness(1.12)}
+.side{position:absolute;top:-1px;left:-1px;background:#2a3441;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:0 0 8px 0;z-index:2}
+@media print{ .side{display:none} }
 
 /* =========================================================================
    A4 用紙
@@ -50,26 +51,20 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 }
 .sheet *{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
 
-/* 袋文字（ポスティングチラシの定番。遠目でも輪郭が潰れない） */
-.stroke{ -webkit-text-stroke:2.4mm #fff; paint-order:stroke fill; }
-.stroke-thin{ -webkit-text-stroke:1.4mm #fff; paint-order:stroke fill; }
+.stroke{ -webkit-text-stroke:2.4mm #fff; paint-order:stroke fill }
 
-/* 地域の呼びかけ帯（3案共通の構造。色だけ変える） */
+/* 地域の呼びかけ帯 */
 .callout{
   display:flex; align-items:center; justify-content:center; gap:3mm; flex:none;
   height:17mm; font-size:16pt; font-weight:900; letter-spacing:.02em; color:#fff;
 }
-.callout .mark{
-  background:#fff; border-radius:1.5mm; padding:0.8mm 2.4mm;
-  font-size:10pt; font-weight:900; letter-spacing:.12em;
-}
+.callout .mark{ background:#fff; border-radius:1.5mm; padding:0.8mm 2.4mm; font-size:10pt; font-weight:900; letter-spacing:.12em }
 
-/* QR区画（3案共通。実寸と余白を確実に確保する） */
+/* QR区画 */
 .qrblock{ display:flex; align-items:center; gap:7mm }
 .qrframe{ background:#fff; padding:5mm; flex:none; border-radius:2mm }
 .qrframe img{ display:block; width:100%; height:100% }
 .qr34 .qrframe img{ width:34mm; height:34mm }
-.qr36 .qrframe img{ width:36mm; height:36mm }
 .qr38 .qrframe img{ width:38mm; height:38mm }
 .qrlead .act{ font-size:15pt; font-weight:900; line-height:1.45 }
 .qrlead .spec{ font-size:11pt; font-weight:700; margin-top:2.5mm; line-height:1.6 }
@@ -81,22 +76,16 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 .legal{ font-size:8pt; line-height:1.6; color:#4a4a4a }
 
 /* =========================================================================
-   案A：王道・お得訴求型（黄×赤）
-   郵便受けの束の中で、明度差が最大の配色。まず「見える」ことを最優先する。
+   表面・案A：王道お得訴求型（黄×赤）
    ========================================================================= */
 #sheet-a .callout{ background:var(--red) }
 #sheet-a .callout .mark{ color:var(--red) }
-#sheet-a .hero{
-  background:var(--yellow); padding:9mm 12mm 8mm; text-align:center; position:relative;
-}
+#sheet-a .hero{ background:var(--yellow); padding:9mm 12mm 8mm; text-align:center }
 #sheet-a .hero .kicker{ font-size:13pt; font-weight:900; color:#7a4a00; margin-bottom:3mm }
 #sheet-a .hero .kicker b{ background:#fff; padding:0.8mm 2.5mm; border-radius:1mm; color:var(--red) }
-#sheet-a .hero .catch{
-  font-size:41pt; font-weight:900; line-height:1.28; color:var(--red); letter-spacing:-.01em;
-}
+#sheet-a .hero .catch{ font-size:41pt; font-weight:900; line-height:1.28; color:var(--red); letter-spacing:-.01em }
 #sheet-a .hero .catch .sm{ font-size:27pt }
 #sheet-a .hero .sub{ font-size:13pt; font-weight:800; color:#4a3000; margin-top:4mm }
-
 #sheet-a .check{ margin:7mm 12mm 0; border:1.1mm solid var(--red); border-radius:2.5mm; overflow:hidden }
 #sheet-a .check .hd{ background:var(--red); color:#fff; font-size:13pt; font-weight:900; padding:2.5mm 5mm; letter-spacing:.03em }
 #sheet-a .check ul{ list-style:none; margin:0; padding:4.5mm 6mm }
@@ -108,22 +97,17 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   display:flex; align-items:center; justify-content:center;
 }
 #sheet-a .check .tail{ background:#fff5cc; font-size:11.5pt; font-weight:800; padding:3mm 6mm; border-top:0.4mm dashed var(--red) }
-
 #sheet-a .num{ margin:6mm 12mm 0; text-align:center }
 #sheet-a .num .lb{ font-size:12pt; font-weight:800 }
-#sheet-a .num .big{
-  font-family:var(--mono); font-size:52pt; font-weight:900; color:var(--red); line-height:1.1; letter-spacing:-.02em;
-}
+#sheet-a .num .big{ font-family:var(--mono); font-size:52pt; font-weight:900; color:var(--red); line-height:1.1; letter-spacing:-.02em }
 #sheet-a .num .big .u{ font-family:var(--font-gothic); font-size:20pt }
 #sheet-a .num .ex{ font-size:8.5pt; color:#5a5a5a; margin-top:1.5mm }
-
 #sheet-a .qrzone{ margin:auto 12mm 0; background:var(--yellow); border-radius:3mm; padding:6mm 7mm }
 #sheet-a .qrzone .qrlead .act{ color:#7a1000 }
 #sheet-a .qrzone .qrlead .spec{ color:#4a3000 }
 
 /* =========================================================================
-   案B：数字インパクト型（濃紺×白×橙）
-   周囲が赤・黄で埋まる郵便受けの中では、落ち着いた濃色がかえって際立つ。
+   表面・案B：数字インパクト型（濃紺×白×橙）
    ========================================================================= */
 #sheet-b .callout{ background:var(--navy) }
 #sheet-b .callout .mark{ color:var(--navy) }
@@ -131,7 +115,6 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 #sheet-b .hero .catch{ font-size:25pt; font-weight:900; line-height:1.45; color:var(--navy) }
 #sheet-b .hero .catch em{ font-style:normal; color:var(--orange) }
 #sheet-b .hero .sub{ font-size:11pt; font-weight:700; color:#3d4a5c; margin-top:2.5mm }
-
 #sheet-b .compare{ margin:4mm 14mm 0; border:0.5mm solid #d8dee7; border-radius:3mm; padding:5mm 6mm }
 #sheet-b .compare .row{ margin-bottom:4mm }
 #sheet-b .compare .row:last-child{ margin-bottom:0 }
@@ -141,93 +124,134 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 #sheet-b .track span{ display:block; height:100% }
 #sheet-b .track.now span{ width:100%; background:#8b97a8 }
 #sheet-b .track.aft span{ width:83.3%; background:var(--green) }
-#sheet-b .compare .diff{
-  margin-top:4mm; border-top:0.4mm dashed #c8d0da; padding-top:3mm; text-align:center;
-}
+#sheet-b .compare .diff{ margin-top:4mm; border-top:0.4mm dashed #c8d0da; padding-top:3mm; text-align:center }
 #sheet-b .compare .diff .lb{ font-size:11pt; font-weight:800 }
-#sheet-b .compare .diff .big{
-  font-family:var(--mono); font-size:38pt; font-weight:900; color:var(--green); line-height:1.15;
-}
+#sheet-b .compare .diff .big{ font-family:var(--mono); font-size:38pt; font-weight:900; color:var(--green); line-height:1.15 }
 #sheet-b .compare .diff .big .u{ font-family:var(--font-gothic); font-size:16pt }
 #sheet-b .compare .ex{ font-size:8.5pt; color:#5a5a5a; margin-top:1.5mm }
-
-#sheet-b .flip{
-  margin:4mm 14mm 0; background:#fdf1e7; border-left:1.4mm solid var(--orange);
-  padding:4mm 5.5mm; font-size:11.5pt; font-weight:800; line-height:1.65; color:#5a2c00;
-}
+#sheet-b .flip{ margin:4mm 14mm 0; background:#fdf1e7; border-left:1.4mm solid var(--orange); padding:4mm 5.5mm; font-size:11.5pt; font-weight:800; line-height:1.65; color:#5a2c00 }
 #sheet-b .points{ display:flex; gap:4mm; margin:4mm 14mm 0 }
-#sheet-b .points div{
-  flex:1; border:0.5mm solid #d8dee7; border-radius:2.5mm; text-align:center; padding:3mm 2mm;
-}
+#sheet-b .points div{ flex:1; border:0.5mm solid #d8dee7; border-radius:2.5mm; text-align:center; padding:3mm 2mm }
 #sheet-b .points .n{ font-family:var(--mono); font-size:16pt; font-weight:900; color:var(--navy); line-height:1.1 }
 #sheet-b .points .t{ font-size:9.5pt; font-weight:700; margin-top:1.2mm }
-
 #sheet-b .qrzone{ margin:auto 14mm 0; background:var(--navy); border-radius:3mm; padding:5mm 6mm; color:#fff }
 #sheet-b .qrzone .qrlead .act{ color:#fff }
 #sheet-b .qrzone .qrlead .spec{ color:#cfe0f7 }
 #sheet-b .qrzone .qrlead .url{ color:#a9c3e6 }
 
 /* =========================================================================
-   案C：会話・吹き出し型（白×水色×橙）
-   問いかけには、人は内心で答えてしまう。答えた瞬間に自分ごとになる。
+   表面・案C：会話・吹き出し型（白×水色×橙）
    ========================================================================= */
 #sheet-c .callout{ background:var(--orange) }
 #sheet-c .callout .mark{ color:var(--orange) }
 #sheet-c .talk{ padding:7mm 13mm 0 }
-#sheet-c .bubble{
-  position:relative; border-radius:5mm; padding:5mm 6mm; font-size:18pt; font-weight:900; line-height:1.5;
-}
+#sheet-c .bubble{ position:relative; border-radius:5mm; padding:5mm 6mm; font-size:18pt; font-weight:900; line-height:1.5 }
 #sheet-c .bubble.q{ background:#e8f4f8; color:#0b5566; margin-right:22mm }
-#sheet-c .bubble.q::after{
-  content:""; position:absolute; left:12mm; bottom:-5mm; border:5mm solid transparent;
-  border-top-color:#e8f4f8; border-bottom:0;
-}
+#sheet-c .bubble.q::after{ content:""; position:absolute; left:12mm; bottom:-5mm; border:5mm solid transparent; border-top-color:#e8f4f8; border-bottom:0 }
 #sheet-c .bubble.a{ background:var(--orange); color:#fff; margin:11mm 0 0 22mm }
-#sheet-c .bubble.a::after{
-  content:""; position:absolute; right:12mm; top:-5mm; border:5mm solid transparent;
-  border-bottom-color:var(--orange); border-top:0;
-}
+#sheet-c .bubble.a::after{ content:""; position:absolute; right:12mm; top:-5mm; border:5mm solid transparent; border-bottom-color:var(--orange); border-top:0 }
 #sheet-c .talk .note{ font-size:11pt; font-weight:700; color:#3d4a5c; margin-top:6mm; line-height:1.75 }
-
 #sheet-c .steps{ display:flex; gap:3mm; margin:7mm 13mm 0 }
 #sheet-c .steps div{ flex:1; text-align:center; border:0.5mm solid #cfd8e2; border-radius:2.5mm; padding:4mm 2mm }
-#sheet-c .steps .n{
-  width:8mm; height:8mm; margin:0 auto 2mm; background:var(--sky); color:#fff; border-radius:50%;
-  font-size:11pt; font-weight:900; display:flex; align-items:center; justify-content:center;
-}
+#sheet-c .steps .n{ width:8mm; height:8mm; margin:0 auto 2mm; background:var(--sky); color:#fff; border-radius:50%; font-size:11pt; font-weight:900; display:flex; align-items:center; justify-content:center }
 #sheet-c .steps .t{ font-size:10pt; font-weight:700; line-height:1.5 }
-
 #sheet-c .num{ margin:6mm 13mm 0; text-align:center; background:#f4fafc; border-radius:3mm; padding:5mm }
 #sheet-c .num .lb{ font-size:11pt; font-weight:800; color:#0b5566 }
 #sheet-c .num .big{ font-family:var(--mono); font-size:40pt; font-weight:900; color:var(--sky); line-height:1.15 }
 #sheet-c .num .big .u{ font-family:var(--font-gothic); font-size:16pt }
 #sheet-c .num .ex{ font-size:8.5pt; color:#5a5a5a; margin-top:1mm }
-
 #sheet-c .qrzone{ margin:auto 13mm 0; border:1.2mm solid var(--orange); border-radius:3mm; padding:5.5mm 6mm }
 #sheet-c .qrzone .qrlead .act{ color:#b34700 }
 #sheet-c .qrzone .qrlead .spec{ color:#3d4a5c }
 
 /* =========================================================================
-   印刷制御
+   裏面（3案共通の構造。色だけ --bk で切り替える）
+   -------------------------------------------------------------------------
+   郵便受けでは約半分が裏返しで着地する。裏面は「補足」ではなく
+   もうひとつの表として設計し、単独でも読み取りまで完結させる。
+   中心に置くのは「読み取ると何が起きるか」の可視化。
+   スキャンをためらう最大の理由は、その先が分からないことにある。
+   ========================================================================= */
+.back .callout{ background:var(--bk) }
+.back .callout .mark{ color:var(--bk) }
+.back .bhead{ text-align:center; padding:8mm 13mm 0 }
+.back .bhead .t{ font-size:27pt; font-weight:900; line-height:1.35; color:var(--bk) }
+.back .bhead .s{ font-size:11.5pt; font-weight:700; color:#3d4a5c; margin-top:3mm }
+
+.phones{ display:flex; align-items:flex-start; justify-content:center; gap:3mm; margin:7mm 11mm 0 }
+.phones .arw{ align-self:center; font-size:14pt; font-weight:900; color:var(--bk); padding-top:6mm }
+.ph{ flex:1; max-width:48mm }
+.ph .step{
+  width:7mm; height:7mm; margin:0 auto 2.5mm; background:var(--bk); color:#fff; border-radius:50%;
+  font-size:10pt; font-weight:900; display:flex; align-items:center; justify-content:center;
+}
+.ph .dev{ border:0.9mm solid #2a3441; border-radius:3.5mm; padding:1.6mm; background:#fff; height:62mm }
+.ph .scr{ height:100%; background:#f4f6f9; border-radius:2mm; padding:2.4mm; display:flex; flex-direction:column; gap:1.5mm; overflow:hidden }
+.ph .cap{ text-align:center; font-size:10pt; font-weight:800; margin-top:2.5mm; line-height:1.5 }
+/* 画面内の簡易UI */
+.ui-prog{ height:1.4mm; background:#dfe4ec; border-radius:1mm; overflow:hidden; flex:none }
+.ui-prog i{ display:block; height:100%; background:var(--navy); width:45% }
+.ui-ttl{ height:2.4mm; background:#c8cfd9; border-radius:0.8mm; flex:none }
+.ui-ttl.s{ width:62% }
+.ui-opt{ height:6mm; background:#fff; border:0.35mm solid #dfe4ec; border-radius:1.2mm; flex:none }
+.ui-opt.on{ border-color:var(--navy); background:#e9f0fa }
+.ui-money{
+  flex:1; background:#e6f5ee; border:0.5mm solid var(--green); border-radius:1.6mm;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.8mm;
+}
+.ui-money .l{ font-size:5.5pt; font-weight:800; color:#0b5f42 }
+.ui-money .v{ font-family:var(--mono); font-size:12.5pt; font-weight:900; color:var(--green); line-height:1 }
+.ui-row{ height:4.6mm; background:#fff; border:0.35mm solid #dfe4ec; border-radius:1.2mm; flex:none }
+.ui-note{ height:2mm; background:#dfe4ec; border-radius:0.8mm; flex:none }
+.ui-note.s{ width:70% }
+
+.back .safe{ margin:7mm 13mm 0; background:var(--bk-soft); border-radius:3mm; padding:5mm 6mm }
+.back .safe .hd{ font-size:11.5pt; font-weight:900; color:var(--bk); margin-bottom:3mm }
+.back .safe ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2.2mm }
+.back .safe li{ font-size:11.5pt; font-weight:700; padding-left:7.5mm; position:relative; line-height:1.5 }
+.back .safe li::before{
+  content:"\2714"; position:absolute; left:0; top:0; width:5.4mm; height:5.4mm; border-radius:50%;
+  background:var(--bk); color:#fff; font-size:8pt; display:flex; align-items:center; justify-content:center;
+}
+.back .bqr{
+  margin:auto 13mm 0; border:1.4mm solid var(--bk); border-radius:3mm; padding:5mm 6mm; text-align:center;
+}
+.back .bqr .lead{ font-size:16pt; font-weight:900; color:var(--bk); margin-bottom:3mm; line-height:1.4 }
+.back .bqr .qrframe{ padding:5mm; display:inline-block }
+.back .bqr .qrframe img{ width:44mm; height:44mm }
+.back .bqr .spec{ font-size:11.5pt; font-weight:800; margin-top:2mm }
+.back .bqr .url{ font-size:8.5pt; font-family:var(--mono); color:#5a5a5a; margin-top:2mm; word-break:break-all }
+
+#sheet-a-b{ --bk:var(--red); --bk-soft:#fff5cc }
+#sheet-b-b{ --bk:var(--navy); --bk-soft:#eef3fa }
+#sheet-c-b{ --bk:var(--orange); --bk-soft:#fdf1e7 }
+
+/* =========================================================================
+   印刷制御：選んだ案の表・裏 2ページだけを出力する
    ========================================================================= */
 @media print{
   body{ background:#fff }
   .ui,.bar{ display:none !important }
   .sheet{ box-shadow:none; margin:0; page-break-after:always }
   .sheet:last-of-type{ page-break-after:auto }
-  body.only-a .sheet:not(#sheet-a){ display:none !important }
-  body.only-b .sheet:not(#sheet-b){ display:none !important }
-  body.only-c .sheet:not(#sheet-c){ display:none !important }
+  body.only-a .sheet:not(.set-a){ display:none !important }
+  body.only-b .sheet:not(.set-b){ display:none !important }
+  body.only-c .sheet:not(.set-c){ display:none !important }
+  body.only-a .set-a:last-of-type,
+  body.only-b .set-b:last-of-type,
+  body.only-c .set-c:last-of-type{ page-break-after:auto }
 }
 </style>
 </head>
 <body>
 
 <div class="ui">
-  <h1>ポスティング用チラシ 3案（A4・片面）</h1>
+  <h1>ポスティング用チラシ 3案（A4・両面）</h1>
   <p>
-    各案の上のボタンから、その1案だけをA4 1枚に印刷できます。<br>
-    印刷ダイアログでは「背景のグラフィック」を必ず有効にし、拡大縮小は「100%」または「実際のサイズ」を選んでください。
+    各案の上のボタンで、その案の<b>表・裏 2ページ</b>を印刷できます。<br>
+    印刷ダイアログでは「背景のグラフィック」を必ず有効にし、拡大縮小は「100%」または「実際のサイズ」、
+    両面印刷は「<b>長辺とじ</b>」を選んでください。<br>
+    袋文字の輪郭を正しく出すため、印刷は <b>Chrome または Edge</b> から行ってください。
   </p>
 </div>
 
@@ -235,10 +259,11 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 <div class="bar">
   <span class="ttl">案A｜王道・お得訴求型</span>
   <span class="sub">黄×赤で明度差を最大化。束の中でまず「見える」ことを優先。該当チェックで自分ごと化させる。</span>
-  <button data-print="a">この案だけ印刷</button>
+  <button data-print="a">この案を両面で印刷</button>
 </div>
 
-<section class="sheet" id="sheet-a">
+<section class="sheet set-a" id="sheet-a">
+  <div class="side">案A・表</div>
   <div class="callout"><span class="mark">重要</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="hero">
@@ -283,14 +308,82 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   </div>
 </section>
 
+<section class="sheet set-a back" id="sheet-a-b">
+  <div class="side">案A・裏</div>
+  <div class="callout"><span class="mark">重要</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
+
+  <div class="bhead">
+    <div class="t">かざすと、<br>こうなります。</div>
+    <div class="s">読み取ったあとに何が起きるか、先にお見せします。</div>
+  </div>
+
+  <div class="phones">
+    <div class="ph">
+      <div class="step">1</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-prog"><i></i></div>
+        <div class="ui-ttl"></div><div class="ui-ttl s"></div>
+        <div class="ui-opt on"></div><div class="ui-opt"></div><div class="ui-opt"></div><div class="ui-opt"></div>
+      </div></div>
+      <div class="cap">質問に<br>答えるだけ</div>
+    </div>
+    <div class="arw">&#9654;</div>
+    <div class="ph">
+      <div class="step">2</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-ttl s"></div>
+        <div class="ui-money"><div class="l">年間の削減額の目安</div><div class="v">240,000円</div></div>
+        <div class="ui-note"></div><div class="ui-note s"></div>
+      </div></div>
+      <div class="cap">約30秒で<br>金額が出ます</div>
+    </div>
+    <div class="arw">&#9654;</div>
+    <div class="ph">
+      <div class="step">3</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-ttl s"></div>
+        <div class="ui-row"></div><div class="ui-row"></div><div class="ui-row"></div>
+        <div class="ui-note"></div><div class="ui-note s"></div>
+      </div></div>
+      <div class="cap">できる対策も<br>その場で</div>
+    </div>
+  </div>
+
+  <div class="safe">
+    <div class="hd">はじめての方へ、3つのお約束</div>
+    <ul>
+      <li>会社名もご連絡先も、入力せずに結果までご覧いただけます</li>
+      <li>費用は一切かかりません。会員登録も不要です</li>
+      <li>ご入力内容を他社に提供することはありません</li>
+    </ul>
+  </div>
+
+  <div class="bqr">
+    <div class="lead">スマホのカメラをかざすだけ</div>
+    <div class="qrframe"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
+    <div class="spec">約30秒・全7問・登録不要・無料</div>
+    <div class="url">xingyuan244-creator.github.io/denki-sim/</div>
+  </div>
+
+  <div class="foot">
+    <div class="company">運営：合同会社大和システム ／ かんたん電気代シミュレーション</div>
+    <div class="legal">
+      表示される金額はご入力内容に基づく簡易試算であり、実際の削減額をお約束するものではありません。
+      実際の料金は契約プラン・使用状況等により変動します。
+      本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+    </div>
+  </div>
+</section>
+
 <!-- ==================== 案B ==================== -->
 <div class="bar">
   <span class="ttl">案B｜数字インパクト型</span>
   <span class="sub">周囲が赤・黄で埋まる中、濃紺がかえって際立つ。数字と棒グラフで一瞥で伝える。</span>
-  <button data-print="b">この案だけ印刷</button>
+  <button data-print="b">この案を両面で印刷</button>
 </div>
 
-<section class="sheet" id="sheet-b">
+<section class="sheet set-b" id="sheet-b">
+  <div class="side">案B・表</div>
   <div class="callout"><span class="mark">ご案内</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="hero">
@@ -346,14 +439,82 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   </div>
 </section>
 
+<section class="sheet set-b back" id="sheet-b-b">
+  <div class="side">案B・裏</div>
+  <div class="callout"><span class="mark">ご案内</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
+
+  <div class="bhead">
+    <div class="t">かざすと、<br>こうなります。</div>
+    <div class="s">読み取ったあとに何が起きるか、先にお見せします。</div>
+  </div>
+
+  <div class="phones">
+    <div class="ph">
+      <div class="step">1</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-prog"><i></i></div>
+        <div class="ui-ttl"></div><div class="ui-ttl s"></div>
+        <div class="ui-opt on"></div><div class="ui-opt"></div><div class="ui-opt"></div><div class="ui-opt"></div>
+      </div></div>
+      <div class="cap">質問に<br>答えるだけ</div>
+    </div>
+    <div class="arw">&#9654;</div>
+    <div class="ph">
+      <div class="step">2</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-ttl s"></div>
+        <div class="ui-money"><div class="l">年間の削減額の目安</div><div class="v">240,000円</div></div>
+        <div class="ui-note"></div><div class="ui-note s"></div>
+      </div></div>
+      <div class="cap">約30秒で<br>金額が出ます</div>
+    </div>
+    <div class="arw">&#9654;</div>
+    <div class="ph">
+      <div class="step">3</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-ttl s"></div>
+        <div class="ui-row"></div><div class="ui-row"></div><div class="ui-row"></div>
+        <div class="ui-note"></div><div class="ui-note s"></div>
+      </div></div>
+      <div class="cap">できる対策も<br>その場で</div>
+    </div>
+  </div>
+
+  <div class="safe">
+    <div class="hd">はじめての方へ、3つのお約束</div>
+    <ul>
+      <li>会社名もご連絡先も、入力せずに結果までご覧いただけます</li>
+      <li>費用は一切かかりません。会員登録も不要です</li>
+      <li>ご入力内容を他社に提供することはありません</li>
+    </ul>
+  </div>
+
+  <div class="bqr">
+    <div class="lead">スマホのカメラをかざすだけ</div>
+    <div class="qrframe"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
+    <div class="spec">約30秒・全7問・登録不要・無料</div>
+    <div class="url">xingyuan244-creator.github.io/denki-sim/</div>
+  </div>
+
+  <div class="foot">
+    <div class="company">運営：合同会社大和システム ／ かんたん電気代シミュレーション</div>
+    <div class="legal">
+      表示される金額はご入力内容に基づく簡易試算であり、実際の削減額をお約束するものではありません。
+      実際の料金は契約プラン・使用状況等により変動します。
+      本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+    </div>
+  </div>
+</section>
+
 <!-- ==================== 案C ==================== -->
 <div class="bar">
   <span class="ttl">案C｜会話・吹き出し型</span>
   <span class="sub">問いかけには内心で答えてしまう。答えた瞬間に自分ごとになる。やわらかく、業種を選ばない。</span>
-  <button data-print="c">この案だけ印刷</button>
+  <button data-print="c">この案を両面で印刷</button>
 </div>
 
-<section class="sheet" id="sheet-c">
+<section class="sheet set-c" id="sheet-c">
+  <div class="side">案C・表</div>
   <div class="callout"><span class="mark">お知らせ</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
 
   <div class="talk">
@@ -397,11 +558,78 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
   </div>
 </section>
 
+<section class="sheet set-c back" id="sheet-c-b">
+  <div class="side">案C・裏</div>
+  <div class="callout"><span class="mark">お知らせ</span><span data-area>山梨県甲府市</span>の事業者様へ！</div>
+
+  <div class="bhead">
+    <div class="t">かざすと、<br>こうなります。</div>
+    <div class="s">読み取ったあとに何が起きるか、先にお見せします。</div>
+  </div>
+
+  <div class="phones">
+    <div class="ph">
+      <div class="step">1</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-prog"><i></i></div>
+        <div class="ui-ttl"></div><div class="ui-ttl s"></div>
+        <div class="ui-opt on"></div><div class="ui-opt"></div><div class="ui-opt"></div><div class="ui-opt"></div>
+      </div></div>
+      <div class="cap">質問に<br>答えるだけ</div>
+    </div>
+    <div class="arw">&#9654;</div>
+    <div class="ph">
+      <div class="step">2</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-ttl s"></div>
+        <div class="ui-money"><div class="l">年間の削減額の目安</div><div class="v">240,000円</div></div>
+        <div class="ui-note"></div><div class="ui-note s"></div>
+      </div></div>
+      <div class="cap">約30秒で<br>金額が出ます</div>
+    </div>
+    <div class="arw">&#9654;</div>
+    <div class="ph">
+      <div class="step">3</div>
+      <div class="dev"><div class="scr">
+        <div class="ui-ttl s"></div>
+        <div class="ui-row"></div><div class="ui-row"></div><div class="ui-row"></div>
+        <div class="ui-note"></div><div class="ui-note s"></div>
+      </div></div>
+      <div class="cap">できる対策も<br>その場で</div>
+    </div>
+  </div>
+
+  <div class="safe">
+    <div class="hd">はじめての方へ、3つのお約束</div>
+    <ul>
+      <li>会社名もご連絡先も、入力せずに結果までご覧いただけます</li>
+      <li>費用は一切かかりません。会員登録も不要です</li>
+      <li>ご入力内容を他社に提供することはありません</li>
+    </ul>
+  </div>
+
+  <div class="bqr">
+    <div class="lead">スマホのカメラをかざすだけ</div>
+    <div class="qrframe"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
+    <div class="spec">約30秒・全7問・登録不要・無料</div>
+    <div class="url">xingyuan244-creator.github.io/denki-sim/</div>
+  </div>
+
+  <div class="foot">
+    <div class="company">運営：合同会社大和システム ／ かんたん電気代シミュレーション</div>
+    <div class="legal">
+      表示される金額はご入力内容に基づく簡易試算であり、実際の削減額をお約束するものではありません。
+      実際の料金は契約プラン・使用状況等により変動します。
+      本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+    </div>
+  </div>
+</section>
+
 <script>
 "use strict";
 
 /* =========================================================================
-   対象地域：ここ2行を書き換えれば、3案すべての表記が入れ替わります
+   対象地域：ここ2行を書き換えれば、表・裏あわせて6面すべてが入れ替わります
    ========================================================================= */
 const AREA_PREF = "山梨県";
 const AREA_CITY = "甲府市";
@@ -410,7 +638,7 @@ document.querySelectorAll("[data-area]").forEach(function(el){
   el.textContent = AREA_PREF + AREA_CITY;
 });
 
-/* 印刷：押された案だけを出力する */
+/* 印刷：押された案の表・裏 2ページだけを出力する */
 document.querySelectorAll("[data-print]").forEach(function(btn){
   btn.addEventListener("click", function(){
     document.body.className = "only-" + btn.dataset.print;
