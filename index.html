@@ -210,7 +210,7 @@ ol.acts p{margin:0;font-size:13px;color:var(--muted);line-height:1.7}
 .agree input{margin-top:5px;width:19px;height:19px;flex:none;accent-color:var(--trust)}
 .agree a{color:var(--trust-2);font-weight:800;text-underline-offset:3px}
 .autonomy{font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
-.consent-note{font-size:12px;color:var(--muted);margin:8px 0 0 29px;line-height:1.7}
+
 .done{border:2px solid var(--money);background:var(--money-soft);border-radius:12px;padding:20px;text-align:center}
 .done .ttl{font-weight:800;font-size:17px;color:var(--money);margin-bottom:6px}
 
@@ -663,11 +663,10 @@ function renderResult(){
       '</div>' +
       '<ul class="reassure" style="margin-top:16px">' +
         '<li>ご入力は必須1項目のみ。30秒で完了します</li>' +
-        '<li>お送りするのは、ご状況に合わせた試算とご提案のみです</li>' +
-        '<li>ご連絡の停止は、いつでもお申し付けいただけます</li>' +
+        '<li>ご入力内容を他社に提供することはありません</li>' +
+        '<li>しつこい営業のお電話はいたしません</li>' +
       '</ul>' +
-      '<label class="agree"><input type="checkbox" id="agree"><span><a href="./privacy.html" id="policyLink" target="_blank" rel="noopener">プライバシーポリシー</a>を確認し、ご入力内容が小売電気事業者等の提携先へ提供されることに同意して送信します</span></label>' +
-      '<p class="consent-note">提携先からご提案のご連絡が入る場合があります。提供の停止はいつでもお申し付けいただけます。</p>' +
+      '<label class="agree"><input type="checkbox" id="agree"><span><a href="./privacy.html" id="policyLink" target="_blank" rel="noopener">プライバシーポリシー</a>に同意して送信します</span></label>' +
       '<div class="btnrow"><button class="btn" type="submit">無料で正確な試算を依頼する<span class="arw">&rarr;</span></button></div>' +
       '<div class="err" id="leadMsg" role="status"></div>' +
       '<p class="autonomy">ご入力は任意です。送信されなくても、結果はこのまま無料でご覧いただけます。判断はお客さまにお任せします。</p>' +
@@ -745,7 +744,7 @@ function submitLead(e){
   }
   if(!document.getElementById("agree").checked){
     msg.style.color = "var(--warn)";
-    msg.textContent = "プライバシーポリシーと提携先への情報提供への同意にチェックをお願いします。";
+    msg.textContent = "プライバシーポリシーへの同意にチェックをお願いします。";
     return;
   }
 
