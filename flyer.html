@@ -174,20 +174,20 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
    ========================================================================= */
 .back .callout{ background:var(--bk) }
 .back .callout .mark{ color:var(--bk) }
-.back .bhead{ text-align:center; padding:8mm 13mm 0 }
-.back .bhead .t{ font-size:27pt; font-weight:900; line-height:1.35; color:var(--bk) }
-.back .bhead .s{ font-size:11.5pt; font-weight:700; color:#3d4a5c; margin-top:3mm }
+.back .bhead{ text-align:center; padding:6mm 13mm 0 }
+.back .bhead .t{ font-size:23pt; font-weight:900; line-height:1.32; color:var(--bk) }
+.back .bhead .s{ font-size:11pt; font-weight:700; color:#3d4a5c; margin-top:2.5mm }
 
-.phones{ display:flex; align-items:flex-start; justify-content:center; gap:3mm; margin:7mm 11mm 0 }
-.phones .arw{ align-self:center; font-size:14pt; font-weight:900; color:var(--bk); padding-top:6mm }
+.phones{ display:flex; align-items:flex-start; justify-content:center; gap:3mm; margin:5mm 11mm 0 }
+.phones .arw{ align-self:center; font-size:13pt; font-weight:900; color:var(--bk); padding-top:5mm }
 .ph{ flex:1; max-width:48mm }
 .ph .step{
-  width:7mm; height:7mm; margin:0 auto 2.5mm; background:var(--bk); color:#fff; border-radius:50%;
-  font-size:10pt; font-weight:900; display:flex; align-items:center; justify-content:center;
+  width:6.5mm; height:6.5mm; margin:0 auto 2mm; background:var(--bk); color:#fff; border-radius:50%;
+  font-size:9.5pt; font-weight:900; display:flex; align-items:center; justify-content:center;
 }
-.ph .dev{ border:0.9mm solid #2a3441; border-radius:3.5mm; padding:1.6mm; background:#fff; height:62mm }
-.ph .scr{ height:100%; background:#f4f6f9; border-radius:2mm; padding:2.4mm; display:flex; flex-direction:column; gap:1.5mm; overflow:hidden }
-.ph .cap{ text-align:center; font-size:10pt; font-weight:800; margin-top:2.5mm; line-height:1.5 }
+.ph .dev{ border:0.9mm solid #2a3441; border-radius:3.5mm; padding:1.6mm; background:#fff; height:53mm }
+.ph .scr{ height:100%; background:#f4f6f9; border-radius:2mm; padding:2.2mm; display:flex; flex-direction:column; gap:1.3mm; overflow:hidden }
+.ph .cap{ text-align:center; font-size:9.5pt; font-weight:800; margin-top:2mm; line-height:1.45 }
 /* 画面内の簡易UI */
 .ui-prog{ height:1.4mm; background:#dfe4ec; border-radius:1mm; overflow:hidden; flex:none }
 .ui-prog i{ display:block; height:100%; background:var(--navy); width:45% }
@@ -205,22 +205,22 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 .ui-note{ height:2mm; background:#dfe4ec; border-radius:0.8mm; flex:none }
 .ui-note.s{ width:70% }
 
-.back .safe{ margin:7mm 13mm 0; background:var(--bk-soft); border-radius:3mm; padding:5mm 6mm }
-.back .safe .hd{ font-size:11.5pt; font-weight:900; color:var(--bk); margin-bottom:3mm }
-.back .safe ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2.2mm }
-.back .safe li{ font-size:11.5pt; font-weight:700; padding-left:7.5mm; position:relative; line-height:1.5 }
+.back .safe{ margin:5mm 13mm 0; background:var(--bk-soft); border-radius:3mm; padding:4mm 5.5mm }
+.back .safe .hd{ font-size:11pt; font-weight:900; color:var(--bk); margin-bottom:2.5mm }
+.back .safe ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1.8mm }
+.back .safe li{ font-size:10.5pt; font-weight:700; padding-left:7mm; position:relative; line-height:1.45 }
 .back .safe li::before{
-  content:"\2714"; position:absolute; left:0; top:0; width:5.4mm; height:5.4mm; border-radius:50%;
-  background:var(--bk); color:#fff; font-size:8pt; display:flex; align-items:center; justify-content:center;
+  content:"\2714"; position:absolute; left:0; top:0; width:5mm; height:5mm; border-radius:50%;
+  background:var(--bk); color:#fff; font-size:7.5pt; display:flex; align-items:center; justify-content:center;
 }
 .back .bqr{
-  margin:auto 13mm 0; border:1.4mm solid var(--bk); border-radius:3mm; padding:5mm 6mm; text-align:center;
+  margin:auto 13mm 0; border:1.4mm solid var(--bk); border-radius:3mm; padding:4mm 6mm; text-align:center;
 }
-.back .bqr .lead{ font-size:16pt; font-weight:900; color:var(--bk); margin-bottom:3mm; line-height:1.4 }
+.back .bqr .lead{ font-size:14pt; font-weight:900; color:var(--bk); margin-bottom:2mm; line-height:1.35 }
 .back .bqr .qrframe{ padding:5mm; display:inline-block }
-.back .bqr .qrframe img{ width:44mm; height:44mm }
-.back .bqr .spec{ font-size:11.5pt; font-weight:800; margin-top:2mm }
-.back .bqr .url{ font-size:8.5pt; font-family:var(--mono); color:#5a5a5a; margin-top:2mm; word-break:break-all }
+.back .bqr .qrframe img{ width:40mm; height:40mm }
+.back .bqr .spec{ font-size:11pt; font-weight:800; margin-top:1.5mm }
+.back .bqr .url{ font-size:8pt; font-family:var(--mono); color:#5a5a5a; margin-top:1.5mm; word-break:break-all }
 
 #sheet-a-b{ --bk:var(--red); --bk-soft:#fff5cc }
 #sheet-b-b{ --bk:var(--navy); --bk-soft:#eef3fa }
