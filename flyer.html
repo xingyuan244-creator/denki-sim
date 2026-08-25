@@ -56,7 +56,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
 
 /* 地域の呼びかけ帯（3案共通の構造。色だけ変える） */
 .callout{
-  display:flex; align-items:center; justify-content:center; gap:3mm;
+  display:flex; align-items:center; justify-content:center; gap:3mm; flex:none;
   height:17mm; font-size:16pt; font-weight:900; letter-spacing:.02em; color:#fff;
 }
 .callout .mark{
@@ -127,42 +127,42 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
    ========================================================================= */
 #sheet-b .callout{ background:var(--navy) }
 #sheet-b .callout .mark{ color:var(--navy) }
-#sheet-b .hero{ padding:9mm 14mm 6mm; text-align:center }
-#sheet-b .hero .catch{ font-size:30pt; font-weight:900; line-height:1.5; color:var(--navy) }
+#sheet-b .hero{ padding:7mm 14mm 4mm; text-align:center }
+#sheet-b .hero .catch{ font-size:25pt; font-weight:900; line-height:1.45; color:var(--navy) }
 #sheet-b .hero .catch em{ font-style:normal; color:var(--orange) }
-#sheet-b .hero .sub{ font-size:12pt; font-weight:700; color:#3d4a5c; margin-top:3mm }
+#sheet-b .hero .sub{ font-size:11pt; font-weight:700; color:#3d4a5c; margin-top:2.5mm }
 
-#sheet-b .compare{ margin:5mm 14mm 0; border:0.5mm solid #d8dee7; border-radius:3mm; padding:6mm 7mm }
-#sheet-b .compare .row{ margin-bottom:5mm }
+#sheet-b .compare{ margin:4mm 14mm 0; border:0.5mm solid #d8dee7; border-radius:3mm; padding:5mm 6mm }
+#sheet-b .compare .row{ margin-bottom:4mm }
 #sheet-b .compare .row:last-child{ margin-bottom:0 }
-#sheet-b .compare .rl{ display:flex; justify-content:space-between; align-items:baseline; font-size:11pt; font-weight:800; margin-bottom:1.8mm }
-#sheet-b .compare .rl b{ font-family:var(--mono); font-size:14pt }
-#sheet-b .track{ height:11mm; background:#eef1f6; border-radius:1.5mm; overflow:hidden }
+#sheet-b .compare .rl{ display:flex; justify-content:space-between; align-items:baseline; font-size:10.5pt; font-weight:800; margin-bottom:1.5mm }
+#sheet-b .compare .rl b{ font-family:var(--mono); font-size:13pt }
+#sheet-b .track{ height:9mm; background:#eef1f6; border-radius:1.5mm; overflow:hidden }
 #sheet-b .track span{ display:block; height:100% }
 #sheet-b .track.now span{ width:100%; background:#8b97a8 }
 #sheet-b .track.aft span{ width:83.3%; background:var(--green) }
 #sheet-b .compare .diff{
-  margin-top:5mm; border-top:0.4mm dashed #c8d0da; padding-top:4mm; text-align:center;
+  margin-top:4mm; border-top:0.4mm dashed #c8d0da; padding-top:3mm; text-align:center;
 }
-#sheet-b .compare .diff .lb{ font-size:11.5pt; font-weight:800 }
+#sheet-b .compare .diff .lb{ font-size:11pt; font-weight:800 }
 #sheet-b .compare .diff .big{
-  font-family:var(--mono); font-size:46pt; font-weight:900; color:var(--green); line-height:1.15;
+  font-family:var(--mono); font-size:38pt; font-weight:900; color:var(--green); line-height:1.15;
 }
-#sheet-b .compare .diff .big .u{ font-family:var(--font-gothic); font-size:18pt }
+#sheet-b .compare .diff .big .u{ font-family:var(--font-gothic); font-size:16pt }
 #sheet-b .compare .ex{ font-size:8.5pt; color:#5a5a5a; margin-top:1.5mm }
 
 #sheet-b .flip{
-  margin:5mm 14mm 0; background:#fdf1e7; border-left:1.4mm solid var(--orange);
-  padding:5mm 6mm; font-size:13pt; font-weight:800; line-height:1.7; color:#5a2c00;
+  margin:4mm 14mm 0; background:#fdf1e7; border-left:1.4mm solid var(--orange);
+  padding:4mm 5.5mm; font-size:11.5pt; font-weight:800; line-height:1.65; color:#5a2c00;
 }
-#sheet-b .points{ display:flex; gap:4mm; margin:5mm 14mm 0 }
+#sheet-b .points{ display:flex; gap:4mm; margin:4mm 14mm 0 }
 #sheet-b .points div{
-  flex:1; border:0.5mm solid #d8dee7; border-radius:2.5mm; text-align:center; padding:4mm 2mm;
+  flex:1; border:0.5mm solid #d8dee7; border-radius:2.5mm; text-align:center; padding:3mm 2mm;
 }
-#sheet-b .points .n{ font-family:var(--mono); font-size:19pt; font-weight:900; color:var(--navy); line-height:1.1 }
-#sheet-b .points .t{ font-size:10pt; font-weight:700; margin-top:1.5mm }
+#sheet-b .points .n{ font-family:var(--mono); font-size:16pt; font-weight:900; color:var(--navy); line-height:1.1 }
+#sheet-b .points .t{ font-size:9.5pt; font-weight:700; margin-top:1.2mm }
 
-#sheet-b .qrzone{ margin:auto 14mm 0; background:var(--navy); border-radius:3mm; padding:6mm 7mm; color:#fff }
+#sheet-b .qrzone{ margin:auto 14mm 0; background:var(--navy); border-radius:3mm; padding:5mm 6mm; color:#fff }
 #sheet-b .qrzone .qrlead .act{ color:#fff }
 #sheet-b .qrzone .qrlead .spec{ color:#cfe0f7 }
 #sheet-b .qrzone .qrlead .url{ color:#a9c3e6 }
@@ -325,7 +325,7 @@ body{ background:#e7eaee; color:var(--ink); font-family:var(--font-gothic); -web
     <div><div class="n">0<span style="font-size:11pt">円</span></div><div class="t">登録も不要です</div></div>
   </div>
 
-  <div class="qrzone qr36">
+  <div class="qrzone qr34">
     <div class="qrblock">
       <div class="qrframe"><img src="qr/denki-sim-flyer-kofu.svg" alt="かんたん電気代シミュレーションのQRコード"></div>
       <div class="qrlead">
