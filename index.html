@@ -3,392 +3,611 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>かんたん電気代シミュレーション｜30秒で削減額がわかる</title>
-<meta name="description" content="法人・個人事業主さま向け。7つの質問に答えるだけで、電気代の削減余地の目安がわかる無料のシミュレーションです。">
+<title>事業所の電気代シミュレーション｜合同会社大和システム</title>
+<meta name="description" content="法人・個人事業主さま向け。4つの質問に答えるだけで、事業所の電気代の削減余地の目安がわかります。無料相談のご予約で抽選プレゼントも実施中。">
 <style>
 /* =========================================================================
    デザイントークン
-   -------------------------------------------------------------------------
-   色は「役割」で分離している（心理学的な色の使い分け）:
-     --trust : 信頼・安定（構造・見出し）→ 濃紺。金融/インフラ系で信頼性の想起が強い
-     --cta   : 行動（CTAのみに使用）    → 橙。ページ内で唯一の高彩度＝フォン・レストルフ効果
-     --money : 利得（金額のみに使用）   → 緑。増加・肯定の連想
-   CTA色を他の要素に流用すると「唯一性」が壊れて効果が落ちるため、必ずCTA専用に保つこと。
-   ========================================================================= */
+   ------------------------------------------------------------------------- */
 :root{
-  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f2f5f9;
-  --border:#e0e5ec; --text:#101828; --muted:#5b6779;
-  --trust:#123a6b; --trust-2:#2f6fd0; --trust-soft:#e9f0fa;
+  --bg:#ffffff; --alt:#f4f8fc; --card:#ffffff;
+  --border:#dbe3ed; --text:#101a26; --muted:#5b6b7f;
+  --navy:#0e3562; --blue:#1f6fd6; --blue-soft:#e9f1fb;
   --cta:#d9530a; --cta-fg:#ffffff; --cta-hover:#bd4607;
   --money:#0b7a52; --money-soft:#e6f5ee;
+  --gold:#a8760a; --gold-soft:#fff6e0; --gold-line:#e0b93c;
   --warn:#b4231f;
-  --shadow:0 1px 2px rgba(16,32,56,.05), 0 10px 28px rgba(16,32,56,.07);
-  --shadow-cta:0 4px 14px rgba(217,83,10,.28);
-  --radius:14px;
+  --shadow:0 1px 2px rgba(14,53,98,.05), 0 12px 30px rgba(14,53,98,.08);
+  --shadow-cta:0 6px 18px rgba(217,83,10,.3);
+  --r:14px;
   --mono:"SFMono-Regular",Consolas,"Roboto Mono",monospace;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0c1017; --surface:#151b24; --surface-2:#1b232e;
-    --border:#2a3441; --text:#e8eef6; --muted:#98a5b7;
-    --trust:#7fb0f0; --trust-2:#9cc4fa; --trust-soft:#152437;
+    --bg:#0b1017; --alt:#111823; --card:#141c27;
+    --border:#26313f; --text:#e8eef6; --muted:#9aa8bb;
+    --navy:#8fbcf7; --blue:#7fb0f0; --blue-soft:#152437;
     --cta:#ff8a3d; --cta-fg:#2a1403; --cta-hover:#ffa163;
     --money:#4bc48d; --money-soft:#12291f;
+    --gold:#ffd978; --gold-soft:#2f2609; --gold-line:#7a6320;
     --warn:#ff8b86;
-    --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px rgba(0,0,0,.4);
-    --shadow-cta:0 4px 14px rgba(255,138,61,.22);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.38);
+    --shadow-cta:0 6px 18px rgba(255,138,61,.22);
   }
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{margin:0;padding:0}
 body{
-  background:var(--bg); color:var(--text);
+  background:var(--bg); color:var(--text); line-height:1.85;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
-  line-height:1.75; -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:960px;margin:0 auto;padding:20px 16px 40px}
-body.has-sticky .wrap{padding-bottom:120px}
-@media(min-width:720px){ body.has-sticky .wrap{padding-bottom:40px} }
+img{max-width:100%}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+section{padding:52px 0}
+section.alt{background:var(--alt)}
+@media(min-width:760px){ section{padding:72px 0} }
 
-header.site{display:flex;align-items:center;gap:10px;padding:2px 0 18px}
-.logo{width:30px;height:30px;border-radius:8px;background:var(--trust);display:grid;place-items:center;color:#fff;font-size:16px}
-@media (prefers-color-scheme: dark){ .logo{color:#0c1017} }
-header.site h1{font-size:14.5px;margin:0;font-weight:700;letter-spacing:.01em}
-header.site .sub{font-size:11.5px;color:var(--muted);margin-left:auto;text-align:right;line-height:1.4}
-
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-.pad{padding:26px 20px}
-@media(min-width:720px){ .pad{padding:36px 40px} }
-
-.fade{animation:fade .3s cubic-bezier(.2,.7,.3,1)}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){ .fade{animation:none} }
-
-/* ---- イントロ ---- */
-.hero h2{font-size:25px;line-height:1.5;margin:0 0 14px;letter-spacing:-.01em}
-@media(min-width:720px){ .hero h2{font-size:32px} }
-.hero h2 em{font-style:normal;color:var(--money);font-weight:800}
-.lead-p{color:var(--muted);margin:0 0 8px;font-size:15px}
-/* 損失回避フレーム：「得られる」ではなく「出ていき続ける」を可視化する一文 */
-.loss{
-  border-left:3px solid var(--cta);background:var(--surface-2);
-  padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:18px 0 22px;
+.eyebrow{
+  display:inline-block;font-size:11.5px;font-weight:900;letter-spacing:.18em;
+  color:var(--blue);background:var(--blue-soft);padding:4px 12px;border-radius:99px;margin-bottom:14px;
 }
-.chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 22px;padding:0;list-style:none}
-.chips li{font-size:12px;background:var(--trust-soft);color:var(--trust);padding:5px 11px;border-radius:999px;font-weight:700}
-.reassure{list-style:none;margin:18px 0 0;padding:0;font-size:12.5px;color:var(--muted)}
-.reassure li{padding-left:20px;position:relative;margin-bottom:4px}
-.reassure li::before{content:"\2713";position:absolute;left:0;color:var(--money);font-weight:800}
+h2.sec{font-size:24px;line-height:1.5;margin:0 0 10px;letter-spacing:-.01em}
+@media(min-width:760px){ h2.sec{font-size:30px} }
+.sec-lead{color:var(--muted);font-size:15px;margin:0 0 28px}
+
+/* ---- ヘッダー ---- */
+header.site{
+  position:sticky;top:0;z-index:30;background:color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
+}
+header.site .in{display:flex;align-items:center;gap:10px;height:56px;max-width:760px;margin:0 auto;padding:0 18px}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--navy);display:grid;place-items:center;color:var(--bg);font-size:16px;flex:none}
+header.site .nm{font-size:13.5px;font-weight:800;line-height:1.3}
+header.site .nm small{display:block;font-size:10.5px;font-weight:600;color:var(--muted)}
+header.site .hcta{
+  margin-left:auto;background:var(--cta);color:var(--cta-fg);text-decoration:none;
+  font-size:12.5px;font-weight:800;padding:9px 15px;border-radius:9px;white-space:nowrap;
+}
+
+/* ---- ヒーロー ---- */
+.hero{padding:44px 0 8px;text-align:center}
+.hero h1{font-size:29px;line-height:1.45;margin:0 0 8px;letter-spacing:-.015em}
+@media(min-width:760px){ .hero h1{font-size:40px} }
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .sub{font-size:15.5px;color:var(--muted);margin:0 0 22px}
+.hero .facts{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px;padding:0;list-style:none}
+.hero .facts li{font-size:12.5px;font-weight:800;background:var(--blue-soft);color:var(--navy);padding:5px 13px;border-radius:99px}
+
+/* ---- 抽選バナー ---- */
+.promo{
+  border:2px solid var(--gold-line);background:var(--gold-soft);border-radius:var(--r);
+  padding:18px 20px;margin:0 0 26px;text-align:center;
+}
+.promo .tag{
+  display:inline-block;background:var(--gold);color:var(--gold-soft);font-size:11.5px;font-weight:900;
+  letter-spacing:.14em;padding:3px 12px;border-radius:99px;margin-bottom:9px;
+}
+.promo .ttl{font-size:19px;font-weight:900;color:var(--gold);line-height:1.5}
+@media(min-width:760px){ .promo .ttl{font-size:23px} }
+.promo .note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.7}
 
 /* ---- ボタン ---- */
 .btn{
-  appearance:none;border:1px solid transparent;border-radius:12px;
-  font:inherit;font-weight:800;font-size:16.5px;cursor:pointer;
-  min-height:56px;padding:0 26px;width:100%;
+  appearance:none;border:0;border-radius:12px;font:inherit;font-weight:900;font-size:17px;
+  cursor:pointer;min-height:58px;padding:0 30px;width:100%;
   background:var(--cta);color:var(--cta-fg);box-shadow:var(--shadow-cta);
+  text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
   transition:background .15s,transform .08s;
 }
 @media(min-width:560px){ .btn{width:auto} }
 .btn:hover{background:var(--cta-hover)}
 .btn:active{transform:translateY(1px)}
-.btn:focus-visible{outline:3px solid var(--trust-2);outline-offset:3px}
-.btn .arw{margin-left:8px}
-.btn.ghost{
-  background:transparent;color:var(--muted);border-color:var(--border);
-  box-shadow:none;font-weight:600;font-size:14.5px;min-height:48px;padding:0 18px;width:auto;
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.btn.sec{background:var(--navy);color:var(--bg);box-shadow:none}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--border);box-shadow:none;font-size:14.5px;min-height:48px;font-weight:700}
+.btn-note{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* ---- 理由カード ---- */
+.reasons{display:grid;gap:14px}
+@media(min-width:760px){ .reasons{grid-template-columns:repeat(3,1fr)} }
+.reason{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px 20px;box-shadow:var(--shadow)}
+.reason .n{font:900 13px/1 var(--mono);color:var(--blue);letter-spacing:.1em;margin-bottom:9px}
+.reason h3{font-size:16.5px;margin:0 0 8px;line-height:1.5}
+.reason p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.8}
+.conclusion{
+  margin-top:20px;background:var(--navy);color:var(--bg);border-radius:var(--r);
+  padding:20px 22px;font-size:15px;font-weight:800;line-height:1.75;text-align:center;
 }
-.btn.ghost:hover{background:var(--surface-2);color:var(--text)}
-.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
-.btn-sub{font-size:12px;color:var(--muted);margin-top:10px}
 
-/* 到達しやすい位置に置く固定CTA（スマホのみ）。QR経由＝ほぼ全員スマホのため */
-.sticky{
-  position:fixed;left:0;right:0;bottom:0;z-index:20;
-  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-  background:color-mix(in srgb, var(--surface) 92%, transparent);
-  backdrop-filter:blur(8px);border-top:1px solid var(--border);
+/* ---- シミュレーター ---- */
+.simcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:24px 20px}
+@media(min-width:760px){ .simcard{padding:32px 34px} }
+.q{margin-bottom:24px}
+.q:last-of-type{margin-bottom:18px}
+.q .lb{font-size:14px;font-weight:800;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.q .lb i{
+  font-style:normal;width:22px;height:22px;flex:none;border-radius:6px;background:var(--navy);color:var(--bg);
+  font:900 11px/1 var(--mono);display:grid;place-items:center;
 }
-.sticky .btn{width:100%}
-@media(min-width:720px){ .sticky{display:none} }
-
-/* ---- 進捗 ---- */
-.progress{margin-bottom:22px}
-.progress .meta{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--muted);margin-bottom:7px}
-.progress .meta b{color:var(--trust);font-weight:800}
-.bar{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
-.bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--trust),var(--trust-2));border-radius:99px;transition:width .45s cubic-bezier(.2,.7,.3,1)}
-
-/* ---- 設問 ---- */
-.q-title{font-size:20.5px;font-weight:800;margin:0 0 6px;line-height:1.55;letter-spacing:-.01em}
-@media(min-width:720px){ .q-title{font-size:23px} }
-.q-note{font-size:13px;color:var(--muted);margin:0 0 18px}
-.opts{display:grid;gap:8px}
-.opts.grid2{grid-template-columns:1fr}
-@media(min-width:600px){ .opts.grid2{grid-template-columns:1fr 1fr} }
-.opt{
-  display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 16px;
-  border:1.5px solid var(--border);border-radius:12px;background:var(--surface);
-  cursor:pointer;font-size:15.5px;text-align:left;color:inherit;font-family:inherit;font-weight:600;
-  transition:border-color .13s,background .13s,transform .08s;
+.q .hint{font-size:12px;color:var(--muted);margin-top:7px}
+.money{display:flex;align-items:center;gap:10px;border:1.5px solid var(--border);background:var(--bg);border-radius:11px;padding:5px 16px}
+.money input{flex:1;min-width:0;border:0;background:transparent;color:inherit;font:900 27px/1.5 var(--mono);padding:7px 0;text-align:right}
+.money input:focus{outline:none}
+.money .u{font-size:15px;color:var(--muted);font-weight:800}
+.money:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+select,input[type=text],input[type=email],input[type=tel]{
+  width:100%;min-height:52px;border:1.5px solid var(--border);border-radius:11px;
+  background:var(--bg);color:inherit;font:inherit;padding:0 14px;
 }
-.opt:hover{border-color:var(--trust-2);background:var(--trust-soft)}
-.opt:active{transform:scale(.995)}
-.opt:focus-visible{outline:3px solid var(--trust-2);outline-offset:2px}
-.opt .mark{width:22px;height:22px;flex:none;border:2px solid var(--border);border-radius:50%;display:grid;place-items:center}
-.opt.multi .mark{border-radius:7px}
-.opt[aria-pressed="true"]{border-color:var(--trust);background:var(--trust-soft)}
-.opt[aria-pressed="true"] .mark{border-color:var(--trust);background:var(--trust);color:var(--surface);font-size:13px;font-weight:800}
-.opt[aria-pressed="true"] .mark::after{content:"\2713"}
-
-/* ---- 金額入力 ---- */
-.money-in{display:flex;align-items:center;gap:10px;border:1.5px solid var(--border);background:var(--surface);border-radius:12px;padding:6px 16px;max-width:440px}
-.money-in input{flex:1;min-width:0;border:0;background:transparent;color:inherit;font:800 30px/1.5 var(--mono);padding:8px 0;text-align:right}
-.money-in input:focus{outline:none}
-.money-in .unit{font-size:16px;color:var(--muted);font-weight:700}
-.money-in:focus-within{border-color:var(--trust);box-shadow:0 0 0 4px var(--trust-soft)}
-.err{color:var(--warn);font-size:13.5px;margin-top:10px;min-height:20px;font-weight:600}
-.hint{font-size:13px;color:var(--muted);margin-top:12px}
+select:focus,input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.pills{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pill{
+  min-height:52px;border:1.5px solid var(--border);border-radius:11px;background:var(--bg);
+  font:inherit;font-weight:700;font-size:14.5px;color:inherit;cursor:pointer;padding:8px 10px;
+}
+.pill:hover{border-color:var(--blue);background:var(--blue-soft)}
+.pill[aria-pressed="true"]{border-color:var(--navy);background:var(--navy);color:var(--bg)}
+.stepper{display:flex;align-items:center;gap:14px}
+.stepper button{
+  width:46px;height:46px;flex:none;border-radius:50%;border:1.5px solid var(--navy);
+  background:var(--bg);color:var(--navy);font:900 20px/1 var(--mono);cursor:pointer;
+}
+.stepper button:hover{background:var(--navy);color:var(--bg)}
+.stepper .v{font:900 26px/1 var(--mono);min-width:52px;text-align:center}
+.stepper .u{font-size:14px;font-weight:700;color:var(--muted)}
+.err{color:var(--warn);font-size:13.5px;font-weight:700;margin-top:10px;min-height:20px}
 
 /* ---- 結果 ---- */
-.result-head{font-size:13px;font-weight:800;color:var(--money);letter-spacing:.06em;margin:0 0 8px}
-.headline{
-  border:2px solid var(--money);background:var(--money-soft);
-  border-radius:var(--radius);padding:24px 20px;text-align:center;
+#result{display:none}
+#result.on{display:block;animation:pop .35s cubic-bezier(.2,.7,.3,1)}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){ #result.on{animation:none} }
+.rhead{border:2px solid var(--money);background:var(--money-soft);border-radius:var(--r);padding:24px 20px;text-align:center;margin-bottom:14px}
+.rhead .l{font-size:14px;font-weight:800}
+.rhead .big{font:900 44px/1.15 var(--mono);color:var(--money);margin:8px 0 4px;letter-spacing:-.02em}
+@media(min-width:760px){ .rhead .big{font-size:58px} }
+.rhead .big small{font-family:inherit;font-size:19px;font-weight:800;margin-left:3px}
+.rhead .flip{font-size:13px;color:var(--muted);margin-top:8px}
+.rgrid{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-bottom:16px}
+.rk{border:1px solid var(--border);border-radius:11px;background:var(--alt);padding:14px 16px}
+.rk .l{font-size:11.5px;color:var(--muted);font-weight:800}
+.rk .v{font:900 20px/1.3 var(--mono);margin-top:2px}
+.rk .v small{font-family:inherit;font-size:12.5px;margin-left:2px}
+.rk .v .pr{font-family:inherit;font-size:15px}
+.bars{border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:16px}
+.bars .row{margin-bottom:13px}
+.bars .row:last-child{margin-bottom:0}
+.bars .rl{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;margin-bottom:5px}
+.bars .rl b{font-family:var(--mono);font-size:14px}
+.trk{height:22px;background:var(--alt);border:1px solid var(--border);border-radius:7px;overflow:hidden}
+.trk span{display:block;height:100%;border-radius:6px;transition:width .7s cubic-bezier(.2,.7,.3,1)}
+.trk.a span{background:#8b97a8}
+.trk.b span{background:var(--money)}
+.bars .cap{font-size:11.5px;color:var(--muted);margin-top:12px}
+ol.acts{list-style:none;margin:0 0 18px;padding:0;counter-reset:a}
+ol.acts li{counter-increment:a;border:1px solid var(--border);border-radius:11px;padding:13px 16px 13px 50px;position:relative;margin-bottom:9px;background:var(--alt)}
+ol.acts li::before{content:counter(a);position:absolute;left:16px;top:15px;width:23px;height:23px;background:var(--blue);color:#fff;border-radius:7px;display:grid;place-items:center;font:800 12px/1 var(--mono)}
+ol.acts b{display:block;font-size:14px;margin-bottom:2px}
+ol.acts p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.7}
+.tonext{background:var(--navy);color:var(--bg);border-radius:var(--r);padding:22px;text-align:center}
+.tonext .t{font-size:17px;font-weight:900;line-height:1.55;margin-bottom:6px}
+.tonext .d{font-size:13px;opacity:.85;margin-bottom:16px;line-height:1.7}
+
+/* ---- 予約フォーム ---- */
+.form{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:24px 20px}
+@media(min-width:760px){ .form{padding:32px 34px} }
+.f{margin-bottom:18px}
+.f label.t{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;margin-bottom:8px}
+.req{background:var(--cta);color:var(--cta-fg);font-size:10.5px;font-weight:900;padding:2px 7px;border-radius:4px;letter-spacing:.06em}
+.opt{background:var(--alt);color:var(--muted);font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:4px;border:1px solid var(--border)}
+.agree{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin-top:6px;cursor:pointer}
+.agree input{margin-top:5px;width:19px;height:19px;flex:none;accent-color:var(--navy)}
+.agree a{color:var(--blue);font-weight:800}
+.reassure{list-style:none;margin:16px 0 0;padding:0;font-size:12.5px;color:var(--muted)}
+.reassure li{padding-left:20px;position:relative;margin-bottom:4px}
+.reassure li::before{content:"\2713";position:absolute;left:0;color:var(--money);font-weight:900}
+.done{border:2px solid var(--money);background:var(--money-soft);border-radius:var(--r);padding:28px 22px;text-align:center}
+.done .t{font-weight:900;font-size:19px;color:var(--money);margin-bottom:8px}
+
+/* ---- FAQ ---- */
+details{border:1px solid var(--border);border-radius:11px;background:var(--card);margin-bottom:9px;overflow:hidden}
+summary{cursor:pointer;font-size:14.5px;font-weight:800;padding:15px 18px;list-style:none;display:flex;align-items:center;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"Q";font:900 12px/1 var(--mono);color:var(--blue);background:var(--blue-soft);width:22px;height:22px;border-radius:6px;display:grid;place-items:center;flex:none}
+details[open] summary{border-bottom:1px solid var(--border)}
+details .a{padding:15px 18px;font-size:13.5px;color:var(--muted);line-height:1.85}
+
+/* ---- 抽選規約 ---- */
+.terms{border:1px solid var(--gold-line);background:var(--gold-soft);border-radius:var(--r);padding:22px}
+.terms h3{font-size:15px;margin:0 0 12px;color:var(--gold)}
+.terms dl{margin:0;font-size:13px}
+.terms dt{font-weight:800;margin-top:10px}
+.terms dt:first-child{margin-top:0}
+.terms dd{margin:2px 0 0;color:var(--muted);line-height:1.75}
+.todo{background:#fff;color:#7a5600;border:1px dashed var(--gold-line);border-radius:5px;padding:1px 7px;font-weight:900}
+@media (prefers-color-scheme: dark){ .todo{background:#1a1400;color:#ffd978} }
+.notice{border:2px solid var(--gold-line);background:var(--gold-soft);color:var(--gold);border-radius:var(--r);padding:16px 18px;margin-bottom:24px;font-size:13px;line-height:1.8}
+.notice b{display:block;font-size:14px;margin-bottom:5px}
+
+/* ---- フッター ---- */
+footer.site{background:var(--navy);color:var(--bg);padding:36px 0 28px;font-size:13px}
+footer.site .co{font-size:15px;font-weight:900;margin-bottom:8px}
+footer.site a{color:var(--bg);opacity:.85}
+footer.site .links{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 14px}
+footer.site .legal{font-size:11px;opacity:.7;line-height:1.8;border-top:1px solid rgba(255,255,255,.18);padding-top:14px}
+
+/* ---- スマホ固定CTA ---- */
+.sticky{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  padding:11px 16px calc(11px + env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--bg) 93%, transparent);
+  backdrop-filter:blur(10px);border-top:1px solid var(--border);
 }
-.headline .lbl{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
-.headline .big{font:900 46px/1.15 var(--mono);color:var(--money);letter-spacing:-.02em;margin:8px 0}
-@media(min-width:640px){ .headline .big{font-size:62px} }
-.headline .big small{font-family:inherit;font-size:20px;font-weight:800;margin-left:4px}
-.headline .flip{font-size:13.5px;color:var(--muted);margin-top:6px}
-.headline .flip b{color:var(--text)}
-
-.subkpis{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-top:12px}
-.kpi{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--surface-2)}
-.kpi .lbl{font-size:12px;color:var(--muted);font-weight:700}
-.kpi .val{font:800 21px/1.35 var(--mono);margin-top:2px}
-.kpi .val small{font-family:inherit;font-size:13px;font-weight:700;margin-left:2px}
-.rank{display:inline-flex;align-items:center;gap:8px}
-.rank .badge{min-width:30px;height:30px;padding:0 9px;border-radius:8px;display:grid;place-items:center;font:900 14px/1 inherit;color:#fff}
-.rank.hi .badge{background:#c2410c} .rank.mid .badge{background:#a8760a} .rank.low .badge{background:var(--money)}
-.rank .txt{font-size:13.5px;font-weight:800}
-
-.cols{display:grid;gap:20px;margin-top:24px}
-@media(min-width:880px){ .cols{grid-template-columns:1fr 1fr;gap:26px} }
-h3.sec{font-size:15px;margin:0 0 13px;font-weight:800;display:flex;align-items:center;gap:8px}
-h3.sec::before{content:"";width:3px;height:16px;background:var(--trust);border-radius:2px}
-
-.chart{border:1px solid var(--border);border-radius:12px;padding:18px}
-.chart .row{margin-bottom:16px}
-.chart .row:last-of-type{margin-bottom:0}
-.chart .rl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;font-weight:600}
-.chart .rl b{font-family:var(--mono);font-size:15px}
-.track{height:28px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.track>span{display:block;height:100%;border-radius:7px;transition:width .7s cubic-bezier(.2,.7,.3,1)}
-.track.now>span{background:linear-gradient(90deg,#9aa4b4,#78849a)}
-.track.after>span{background:linear-gradient(90deg,var(--money),#3aa87b)}
-.chart .cap{font-size:12px;color:var(--muted);margin-top:14px}
-
-ol.acts{list-style:none;margin:0;padding:0;counter-reset:a}
-ol.acts li{counter-increment:a;border:1px solid var(--border);border-radius:12px;padding:14px 16px 14px 52px;position:relative;margin-bottom:10px;background:var(--surface-2)}
-ol.acts li::before{content:counter(a);position:absolute;left:16px;top:16px;width:24px;height:24px;background:var(--trust);color:var(--surface);border-radius:7px;display:grid;place-items:center;font:800 13px/1 var(--mono)}
-ol.acts b{display:block;font-size:14.5px;margin-bottom:3px}
-ol.acts p{margin:0;font-size:13px;color:var(--muted);line-height:1.7}
-
-.note{background:var(--trust-soft);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:13.5px;margin-top:16px}
-
-/* ---- 任意フォーム ---- */
-.lead{margin-top:18px;border-top:4px solid var(--cta)}
-.lead h3.sec::before{background:var(--cta)}
-.lead .fields{display:grid;gap:12px}
-@media(min-width:640px){ .lead .fields{grid-template-columns:1fr 1fr} }
-.field label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:5px}
-.field label .req{color:var(--cta);margin-left:4px}
-.field label .opt-tag{color:var(--muted);font-weight:600;margin-left:4px;font-size:11.5px}
-.field input{width:100%;min-height:50px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface);color:inherit;font:inherit;padding:0 13px}
-.field input:focus{outline:none;border-color:var(--trust);box-shadow:0 0 0 4px var(--trust-soft)}
-.agree{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin-top:16px;color:var(--text);cursor:pointer}
-.agree input{margin-top:5px;width:19px;height:19px;flex:none;accent-color:var(--trust)}
-.agree a{color:var(--trust-2);font-weight:800;text-underline-offset:3px}
-.autonomy{font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
-
-.done{border:2px solid var(--money);background:var(--money-soft);border-radius:12px;padding:20px;text-align:center}
-.done .ttl{font-weight:800;font-size:17px;color:var(--money);margin-bottom:6px}
-
-footer.disc{margin-top:26px;font-size:11.5px;color:var(--muted);line-height:1.8}
-hr.sep{border:0;border-top:1px solid var(--border);margin:24px 0}
-.sitelinks{
-  display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;
-  margin-top:26px;padding-top:18px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);
-}
-.sitelinks a{color:var(--muted);text-decoration:none;text-underline-offset:3px}
-.sitelinks a:hover{color:var(--trust-2);text-decoration:underline}
-.sitelinks .operator{font-weight:700}
-
-@media print{
-  body{background:#fff;color:#000}
-  .wrap{max-width:none;padding:0}
-  .noprint{display:none !important}
-  .card{box-shadow:none;border-color:#bbb}
-  .cols{grid-template-columns:1fr 1fr}
-  .headline{border-color:#000}
-  .track>span{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-}
+.sticky .btn{width:100%;min-height:52px;font-size:16px}
+@media(min-width:760px){ .sticky{display:none} }
+body{padding-bottom:0}
+@media(max-width:759px){ body.has-sticky{padding-bottom:86px} }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="site noprint">
+<header class="site">
+  <div class="in">
     <div class="logo">&#9889;</div>
-    <h1 id="siteName">かんたん電気代シミュレーション</h1>
-    <span class="sub">無料・登録不要<br>所要時間 約30秒</span>
-  </header>
+    <div class="nm">事業所の電気代シミュレーション<small>合同会社大和システム</small></div>
+    <a class="hcta" href="#sim">30秒で試す</a>
+  </div>
+</header>
 
-  <main id="app"></main>
-
-  <footer class="disc" id="disclaimer" hidden></footer>
-
-  <nav class="sitelinks noprint">
-    <span class="operator">運営：合同会社大和システム</span>
-    <a href="./privacy.html">プライバシーポリシー</a>
-    <a href="./contact.html">お問い合わせ</a>
-  </nav>
+<!-- ============================================================
+     公開前チェック用のお知らせ。CAMPAIGN の値を埋めたら
+     この <div class="notice"> ... </div> を丸ごと削除してください。
+     ============================================================ -->
+<div class="wrap" style="padding-top:18px">
+  <div class="notice" id="setupNotice" hidden>
+    <b>&#9888; 抽選キャンペーンの内容が未設定です</b>
+    景品表示法では、懸賞を行う際に<b>賞品・当選人数・応募期間・発表方法・応募条件</b>の明示が必要です。
+    ページ末尾のスクリプト内 <code>CAMPAIGN</code> の「要記入」を埋めてから公開してください。
+    キャンペーンを行わない場合は <code>CAMPAIGN.enabled = false</code> にすると関連表示がすべて消えます。
+  </div>
 </div>
 
-<div id="sticky"></div>
+<div class="wrap hero">
+  <h1>その電気代、<br><em>まだ下げられる</em>かもしれません。</h1>
+  <p class="sub">法人・個人事業主さま向け。4つの質問に答えるだけで、年間どれくらい変わるかの目安がその場でわかります。</p>
+  <ul class="facts"><li>約30秒</li><li>全4問</li><li>登録不要</li><li>無料</li></ul>
+
+  <div class="promo" id="promo" hidden>
+    <span class="tag">CAMPAIGN</span>
+    <div class="ttl">無料相談のご予約で<br><span id="promoPrize"></span>が抽選で当たる</div>
+    <div class="note" id="promoNote"></div>
+  </div>
+
+  <a class="btn" href="#sim">かんたん30秒で試してみる &rarr;</a>
+  <p class="btn-note">会社名やご連絡先の入力なしで、結果までご覧いただけます。</p>
+</div>
+
+<!-- ============ なぜ下がる余地があるのか ============ -->
+<section class="alt">
+  <div class="wrap">
+    <span class="eyebrow">SECTION 01</span>
+    <h2 class="sec">事業所の電気代に<br>見直しの余地が残る理由</h2>
+    <p class="sec-lead">ご家庭とは、使い方も契約の仕組みも異なります。</p>
+
+    <div class="reasons">
+      <div class="reason">
+        <div class="n">01</div>
+        <h3>営業時間のあいだ、使い続けている</h3>
+        <p>照明・空調・冷蔵冷凍・厨房機器などが開店から閉店まで動き続けるため、使用量が大きくなりやすく、単価差が金額に響きます。</p>
+      </div>
+      <div class="reason">
+        <div class="n">02</div>
+        <h3>開業時の契約のままになっている</h3>
+        <p>契約電力や料金プランを一度も見直していないケースは少なくありません。実際の使い方と契約が合っていないことがあります。</p>
+      </div>
+      <div class="reason">
+        <div class="n">03</div>
+        <h3>比較する機会がない</h3>
+        <p>電気の契約は、こちらから動かないかぎり自動で更新されます。他の選択肢と比べる場面が、そもそも訪れません。</p>
+      </div>
+    </div>
+
+    <div class="conclusion">まずは「いまいくら払っているか」を把握するところから。<br>それだけでも、判断の材料になります。</div>
+  </div>
+</section>
+
+<!-- ============ シミュレーター ============ -->
+<section id="sim">
+  <div class="wrap">
+    <span class="eyebrow">SECTION 02</span>
+    <h2 class="sec">電気代シミュレーション</h2>
+    <p class="sec-lead">4つの質問にお答えください。会社名やご連絡先の入力は不要です。</p>
+
+    <div class="simcard">
+      <div class="q">
+        <div class="lb"><i>1</i>直近1ヶ月の電気代</div>
+        <div class="money">
+          <input type="text" inputmode="numeric" id="bill" placeholder="0" aria-label="直近1ヶ月の電気代">
+          <span class="u">円 / 月</span>
+        </div>
+        <p class="hint">検針票または請求書の請求金額（税込）。おおよそで構いません。</p>
+      </div>
+
+      <div class="q">
+        <div class="lb"><i>2</i>現在の電力の契約先</div>
+        <select id="provider">
+          <option value="">選択してください</option>
+          <option>大手電力</option>
+          <option>新電力</option>
+          <option>わからない</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <div class="lb"><i>3</i>業種</div>
+        <select id="industry">
+          <option value="">選択してください</option>
+          <option>飲食店・カフェ</option>
+          <option>小売・物販</option>
+          <option>美容室・サロン</option>
+          <option>クリニック・歯科</option>
+          <option>事務所・オフィス</option>
+          <option>工場・作業場</option>
+          <option>倉庫・物流</option>
+          <option>宿泊・宿</option>
+          <option>その他</option>
+        </select>
+      </div>
+
+      <div class="q">
+        <div class="lb"><i>4</i>電力契約の件数</div>
+        <div class="stepper">
+          <button type="button" id="dec" aria-label="減らす">&minus;</button>
+          <span class="v" id="cnt">1</span>
+          <button type="button" id="inc" aria-label="増やす">&#43;</button>
+          <span class="u">件</span>
+        </div>
+        <p class="hint">複数の事業所・需給契約がある場合は、その合計件数を。金額は全件の合計をご入力ください。</p>
+      </div>
+
+      <button class="btn" id="run">結果を見る &rarr;</button>
+      <div class="err" id="err" role="alert"></div>
+    </div>
+
+    <div id="result" style="margin-top:26px">
+      <div class="rhead">
+        <div class="l">年間で見込める削減額の目安</div>
+        <div class="big" id="rY">0<small>円</small></div>
+        <div class="flip">これは、見直さないまま1年間で<b>余分に支払う可能性のある額</b>でもあります。</div>
+      </div>
+
+      <div class="rgrid">
+        <div class="rk"><div class="l">1ヶ月あたり</div><div class="v" id="rM">0<small>円</small></div></div>
+        <div class="rk"><div class="l">見直しの優先度</div><div class="v"><span class="pr" id="rP">－</span></div></div>
+      </div>
+
+      <div class="bars">
+        <div class="row">
+          <div class="rl"><span>いまのまま（年間）</span><b id="bNow">0 円</b></div>
+          <div class="trk a"><span style="width:100%"></span></div>
+        </div>
+        <div class="row">
+          <div class="rl"><span>見直した場合（年間・試算）</span><b id="bAft">0 円</b></div>
+          <div class="trk b"><span id="bAftBar" style="width:0%"></span></div>
+        </div>
+        <p class="cap" id="bCap"></p>
+      </div>
+
+      <ol class="acts" id="acts"></ol>
+
+      <div class="tonext">
+        <div class="t" id="nextTtl">検針票をもとにした、正確な試算をお出しします</div>
+        <div class="d" id="nextDesc">上の金額は目安です。ご相談は無料、お時間は約10分。オンラインでも承ります。</div>
+        <a class="btn" href="#reserve">無料相談を予約する &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 予約フォーム ============ -->
+<section class="alt" id="reserve">
+  <div class="wrap">
+    <span class="eyebrow">SECTION 03</span>
+    <h2 class="sec">無料相談のご予約</h2>
+    <p class="sec-lead">ご希望の時間帯とご連絡先をご入力ください。お時間は約10分です。</p>
+
+    <div class="form" id="formBox">
+      <form id="form" novalidate>
+        <div class="f">
+          <label class="t" for="slot">ご希望の時間帯<span class="req">必須</span></label>
+          <select id="slot">
+            <option value="">時間帯を選択してください</option>
+            <option>午前中（9:00〜12:00）</option>
+            <option>12:00〜15:00</option>
+            <option>15:00〜17:00</option>
+            <option>17:00〜19:00</option>
+            <option>時間帯の指定なし</option>
+          </select>
+        </div>
+
+        <div class="f">
+          <label class="t" for="name">お名前<span class="req">必須</span></label>
+          <input type="text" id="name" autocomplete="name" placeholder="大和 太郎">
+        </div>
+
+        <div class="f">
+          <label class="t" for="tel">電話番号<span class="req">必須</span></label>
+          <input type="tel" id="tel" autocomplete="tel" placeholder="0000-00-0000">
+        </div>
+
+        <div class="f">
+          <label class="t" for="email">メールアドレス<span class="req">必須</span></label>
+          <input type="email" id="email" autocomplete="email" placeholder="example@company.co.jp">
+        </div>
+
+        <div class="f">
+          <label class="t" for="company">会社名 / 屋号<span class="opt">任意</span></label>
+          <input type="text" id="company" autocomplete="organization">
+        </div>
+
+        <div class="f">
+          <label class="t">ご相談方法<span class="req">必須</span></label>
+          <div class="pills" id="how">
+            <button type="button" class="pill" aria-pressed="false" data-v="対面を希望">対面を希望</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="非対面（オンライン・電話）を希望">非対面を希望</button>
+          </div>
+        </div>
+
+        <label class="agree" id="promoOptIn" hidden>
+          <input type="checkbox" id="joinPromo" checked>
+          <span>抽選キャンペーンに応募する（<span id="promoPrize2"></span>）</span>
+        </label>
+
+        <label class="agree">
+          <input type="checkbox" id="agree">
+          <span><a href="./privacy.html" id="policyLink" target="_blank" rel="noopener">プライバシーポリシー</a>に同意して送信します</span>
+        </label>
+
+        <ul class="reassure">
+          <li>ご入力内容を他社に提供することはありません</li>
+          <li>しつこい営業のお電話はいたしません</li>
+          <li>ご相談は無料です。費用は一切かかりません</li>
+        </ul>
+
+        <div style="margin-top:20px"><button class="btn" type="submit" id="send">この内容で予約する &rarr;</button></div>
+        <div class="err" id="fErr" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 抽選規約 ============ -->
+<section id="terms" hidden>
+  <div class="wrap">
+    <span class="eyebrow">CAMPAIGN</span>
+    <h2 class="sec">抽選キャンペーンについて</h2>
+    <div class="terms">
+      <h3>実施概要</h3>
+      <dl>
+        <dt>賞品</dt><dd id="tPrize"></dd>
+        <dt>当選人数</dt><dd id="tWinners"></dd>
+        <dt>応募期間</dt><dd id="tPeriod"></dd>
+        <dt>応募条件</dt><dd id="tCondition"></dd>
+        <dt>当選発表</dt><dd id="tAnnounce"></dd>
+        <dt>注意事項</dt><dd id="tNotes"></dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="alt">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2 class="sec">よくあるご質問</h2>
+
+    <details><summary>費用はかかりますか？</summary><div class="a">シミュレーション、無料相談ともに費用は一切かかりません。ご相談後にお申し込みを強制することもありません。</div></details>
+    <details><summary>正確な電気代がわからなくても使えますか？</summary><div class="a">はい。おおよその金額でシミュレーションできます。より正確な試算をご希望の場合は、無料相談の際に検針票をご用意ください。</div></details>
+    <details><summary>入力した内容は外部に送られますか？</summary><div class="a">シミュレーションのみのご利用では、入力内容が送信されることはありません。ブラウザ内で計算しています。予約フォームを送信された場合のみ、当社に届きます。他社へ提供することはありません。</div></details>
+    <details><summary>相談したら必ず契約しなければなりませんか？</summary><div class="a">いいえ。現状のままがよいという結論になることもあります。判断はお客さまにお任せします。</div></details>
+    <details><summary>オンラインでも相談できますか？</summary><div class="a">はい。予約フォームで「非対面を希望」をお選びください。お電話またはオンラインで承ります。</div></details>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="co">合同会社大和システム</div>
+    <div>事業所向け 電気代シミュレーション</div>
+    <div class="links">
+      <a href="./privacy.html">プライバシーポリシー</a>
+      <a href="./contact.html">お問い合わせ</a>
+    </div>
+    <div class="legal">
+      本シミュレーションは、ご入力いただいた直近1ヶ月の電気料金をもとにした簡易試算であり、実際の削減額をお約束するものではありません。
+      実際の料金・削減効果は契約プラン、契約電力、使用状況、燃料費調整額、再生可能エネルギー発電促進賦課金等により変動します。
+      正確な金額は検針票および各電力会社・小売電気事業者の公式情報をご確認ください。
+      本サービスは電力契約の勧誘・媒介を目的とするものではありません。
+      <br>&copy; 合同会社大和システム
+    </div>
+  </div>
+</footer>
+
+<div id="stickyBox"></div>
 
 <script>
 "use strict";
 
 /* =========================================================================
-   0. 運用設定（ここだけ書き換えれば動きます）
+   0. 運用設定
    ========================================================================= */
+var SITE_NAME = "事業所の電気代シミュレーション";
 
-/* サイト名。ここを書き換えると、ヘッダー・ブラウザタブ・送信メールの件名がすべて連動して変わります。
-   （SEO用に、HTML冒頭の <title> タグも同じ名前に揃えてください）
-   ─ 命名の考え方 ─
-     「診断」は医療を連想させ、"判定される" 心理的負担（評価懸念）を生むため使わない。
-     「シミュレーション」は主体が利用者側にあり、失敗のない行為として受け取られる。
-     漢字だけの名称より、ひらがな始まりのほうが視認・理解の負荷が低く「軽い」と知覚される。 */
-var SITE_NAME = "かんたん電気代シミュレーション";
-
-/* Google Apps Script ウェブアプリのURL。
-   送信内容はここへPOSTされ、GAS側から通知先メールアドレスへ転送されます。
-   通知先アドレスは公開ソースに残さないよう、GAS側（gas-mail.gs の NOTIFY_TO）で管理しています。 */
+/* Google Apps Script ウェブアプリのURL（通知先アドレスはGAS側で管理） */
 var SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbx7UgAvTYaHWKz_QczeaGG5vhfiT2WfKyFWDw7uZVs458pRNusiBDnrSmL6LTn540fJFg/exec";
 
-/* mailto: フォールバック用の通知先アドレス。
-   SUBMIT_ENDPOINT が設定されている間は使用されないため、
-   迷惑メール対策として意図的に空にしています。
-   GASを停止して mailto: 方式に戻す場合のみ、ここにアドレスを記入してください。 */
-var NOTIFY_EMAIL = "";
+/* -------------------------------------------------------------------------
+   抽選キャンペーン
+   景品表示法上、懸賞を行う際は 賞品・当選人数・応募期間・発表方法・応募条件 の
+   明示が必要です。「要記入」を実際の内容に置き換えてから公開してください。
+   実施しない場合は enabled を false にすると、関連する表示がすべて消えます。
+   ------------------------------------------------------------------------- */
+var CAMPAIGN = {
+  enabled:  true,
+  prize:    "Amazonギフトカード 要記入：金額分",
+  winners:  "要記入：当選人数（例：抽選で10名様）",
+  period:   "要記入：応募期間（例：2026年9月1日〜10月31日）",
+  condition:"応募期間中に無料相談をご予約いただき、実際にご相談いただいた法人・個人事業主のお客さまが対象です。お一人さま1回までのご応募とさせていただきます。",
+  announce: "当選者の発表は、賞品の発送をもって代えさせていただきます。",
+  notes:    "Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。本キャンペーンは合同会社大和システムによる実施であり、Amazon.co.jp とは関係ありません。"
+};
 
-/* 流入経路の記録：QRコードに ?src=... を付けておくと、送信内容に経路が記録されます。
-   例）店頭POP → ?src=pop ／ 名刺 → ?src=meishi ／ チラシ → ?src=flyer  */
+/* 流入経路（QR・チラシに ?src=... を付けると記録されます） */
 var SRC = (function(){
   try { return new URLSearchParams(location.search).get("src") || "direct"; }
   catch(e){ return "direct"; }
 })();
 
-/* サイト名を画面とタブに反映 */
-document.title = SITE_NAME + "｜30秒で削減額がわかる";
-document.getElementById("siteName").textContent = SITE_NAME;
-
 /* =========================================================================
    1. 試算ロジック
    -------------------------------------------------------------------------
    削減額は「直近1ヶ月の電気代」の入力値のみから決定する。
-   他の設問（業種・エリア・設備・契約数・契約先）は金額計算に一切影響しない。
+   業種・契約先・契約件数は金額計算に一切影響しない（表示文言の出し分けのみ）。
    ========================================================================= */
 
-/**
- * 最も大きい位で繰り上げる。
- *   12,000 -> 20,000 ／ 6,750 -> 7,000 ／ 52,500 -> 60,000 ／ 1,200 -> 2,000
- * 既に最上位の位で割り切れている場合はそのまま（9,000 -> 9,000）。
- */
+/** 最も大きい位で繰り上げる（12,000→20,000／6,750→7,000／9,000→9,000） */
 function ceilToTopDigit(n){
   if(!isFinite(n) || n <= 0) return 0;
-  var digits = Math.floor(Math.log10(n));      // 最上位の位（例: 12000 -> 4）
-  var unit = Math.pow(10, digits);             // その位の重み（例: 10000）
-  return Math.ceil((n / unit) - 1e-9) * unit;  // 1e-9 は浮動小数点誤差の吸収
+  var d = Math.floor(Math.log10(n));
+  var u = Math.pow(10, d);
+  return Math.ceil((n / u) - 1e-9) * u;
 }
+function monthlySaving(bill){ return ceilToTopDigit(bill * 0.15); }
 
-/** 月間削減額 ＝ ceilToTopDigit(入力金額 × 0.15) */
-function monthlySaving(bill){
-  return ceilToTopDigit(bill * 0.15);
-}
-
-/* ---- 自己テスト（仕様の検算6件） ---- */
 (function selfTest(){
-  var cases = [[80000,20000],[120000,20000],[45000,7000],[350000,60000],[8000,2000],[60000,9000]];
-  var ok = true;
-  var rows = cases.map(function(c){
-    var got = monthlySaving(c[0]);
-    if(got !== c[1]) ok = false;
-    return { "入力": c[0], "15%": c[0]*0.15, "期待値": c[1], "実測": got, "判定": got===c[1] ? "OK" : "NG" };
+  var cases=[[80000,20000],[120000,20000],[45000,7000],[350000,60000],[8000,2000],[60000,9000]];
+  var ok=true;
+  var rows=cases.map(function(c){
+    var g=monthlySaving(c[0]); if(g!==c[1]) ok=false;
+    return {"入力":c[0],"15%":c[0]*0.15,"期待値":c[1],"実測":g,"判定":g===c[1]?"OK":"NG"};
   });
-  console.log("%c[自己テスト] ceilToTopDigit / monthlySaving", "font-weight:bold");
+  console.log("%c[自己テスト] monthlySaving","font-weight:bold");
   console.table(rows);
-  console.log("%c" + (ok ? "全6件 PASS" : "失敗あり"), "color:" + (ok?"green":"red") + ";font-weight:bold");
+  console.log("%c"+(ok?"全6件 PASS":"失敗あり"),"color:"+(ok?"green":"red")+";font-weight:bold");
 })();
 
-/* =========================================================================
-   2. 設問定義（全7問）
-   -------------------------------------------------------------------------
-   並び順は「答えやすい順」。最初に負担の軽い設問を置くことで、
-   一貫性の原理（小さなYESの積み重ね）により離脱率が下がる。
-   最も心理的負担の大きい金額入力は、最後（＝ここまで来たらやめにくい位置）に置く。
-   ========================================================================= */
-var QUESTIONS = [
-  { id:"bizType", type:"single", title:"はじめに、事業形態を教えてください",
-    note:"該当するものを選ぶだけです。",
-    options:["法人","個人事業主（屋号あり）","わからない"] },
-
-  { id:"industry", type:"single", title:"どのような業種ですか", grid:true,
-    options:["飲食店・カフェ","小売・物販","美容室・サロン","クリニック・歯科","事務所・オフィス","工場・作業場","倉庫・物流","宿泊・宿","その他","わからない"] },
-
-  { id:"area", type:"single", title:"事業所はどのエリアにありますか", grid:true,
-    options:["北海道","東北","東京","中部","北陸","関西","中国","四国","九州","沖縄","わからない"] },
-
-  { id:"contracts", type:"single", title:"電力の契約は何件ありますか",
-    note:"複数の事業所・需給契約がある場合は、その合計件数をお選びください。",
-    options:["1件","2〜5件","6〜10件","11件以上","わからない"] },
-
-  { id:"equipment", type:"multi", title:"電気を多く使う設備はどれですか", grid:true,
-    note:"当てはまるものをすべてお選びください（複数選択できます）。",
-    options:["業務用エアコン","冷蔵・冷凍ショーケース","厨房機器（フライヤー・オーブン等）","コンプレッサー・動力機械","サーバー・大型OA","電気給湯・電気温水器","EV充電器","該当なし","わからない"],
-    exclusive:["該当なし","わからない"] },
-
-  { id:"provider", type:"single", title:"現在の電力の契約先はどちらですか",
-    options:["大手電力","新電力","わからない"] },
-
-  { id:"bill", type:"number", title:"直近1ヶ月の電気代はいくらでしたか",
-    note:"検針票または請求書の請求金額（税込）です。おおよそで構いません。" }
-];
-
-/* 見直しの優先度：設問6「現在の契約先」のみで決定。金額計算には影響しない。
-   「ランク A/B/C」は成績評価を連想させ、利用者に "評価される" 身構えを生むため使わない。
-   利用者への評価ではなく「取り組む順番」を示す表現にしている。 */
-var RANKS = {
-  "大手電力":   { key:"hi",  badge:"高", label:"いま見直す価値が大きい", desc:"大手電力の標準的なプランのままの場合、契約内容の見直し余地が大きい傾向があります。" },
-  "新電力":     { key:"mid", badge:"中", label:"再点検の余地あり",       desc:"すでに新電力をご利用でも、契約時期によっては現行の水準と乖離している場合があります。" },
-  "わからない": { key:"mid", badge:"中", label:"まず契約の確認から",     desc:"まずは現在の契約先とプラン名を確認するところから着手できます。" }
+/* 見直しの優先度：契約先のみで決定。金額計算には影響しない */
+var PRIORITY = {
+  "大手電力":   { key:"高", label:"いま見直す価値が大きい" },
+  "新電力":     { key:"中", label:"再点検の余地あり" },
+  "わからない": { key:"中", label:"まず契約の確認から" }
 };
 
-/* 施策文言（業種・設備・契約先・契約数に応じて出し分け。金額は紐づけない） */
 var ACT_PROVIDER = {
-  "大手電力":   { t:"新電力・他プランへの切替検討", d:"複数の小売電気事業者から相見積もりを取り、現在の単価水準と比較します。切替に伴う設備工事は原則不要です。" },
-  "新電力":     { t:"現行プランの再比較", d:"契約から時間が経っている場合、市場連動型と固定単価型のどちらが自社に適しているかを再点検します。" },
-  "わからない": { t:"契約内容の棚卸し", d:"検針票から契約先・プラン名・契約電力・使用量を書き出すことが、あらゆる見直しの出発点になります。" }
-};
-var ACT_EQUIP = {
-  "冷蔵・冷凍ショーケース":             { t:"冷凍・冷蔵設備の運転最適化", d:"庫内設定温度、ナイトカバーの運用、凝縮器の清掃頻度を見直すことで、常時稼働機器の消費電力を抑えられます。" },
-  "業務用エアコン":                     { t:"空調の設定温度とフィルター管理", d:"フィルターの目詰まりは効率低下の主因です。清掃周期の固定化と、室外機周りの通風確保を習慣化します。" },
-  "コンプレッサー・動力機械":           { t:"動力機器の稼働時間の見直し", d:"エア漏れの点検と、非稼働時間帯の元電源停止ルールを設けることで、無負荷運転を削減します。" },
-  "厨房機器（フライヤー・オーブン等）": { t:"厨房機器の立ち上げ時間の最適化", d:"予熱開始時刻を実際の提供開始時刻から逆算し、アイドリング時間を短縮します。" },
-  "サーバー・大型OA":                   { t:"OA機器・サーバー環境の効率化", d:"サーバー室の空調設定と、業務時間外のOA機器の一括電源管理を見直します。" },
-  "電気給湯・電気温水器":               { t:"給湯設備の沸き上げ時間帯の見直し", d:"必要湯量に対する沸き上げ設定を調整し、過剰な保温運転を避けます。" },
-  "EV充電器":                           { t:"EV充電の時間帯シフト", d:"充電開始時刻をずらし、他設備とのピーク重複を避ける運用を検討します。" }
+  "大手電力":   { t:"契約プランの棚卸しと比較", d:"複数の小売電気事業者の条件を並べ、現在の単価水準と比較します。比較そのものに費用はかかりません。" },
+  "新電力":     { t:"現行プランの再点検", d:"契約から時間が経っている場合、市場連動型と固定単価型のどちらが自社に適しているかを確かめ直します。" },
+  "わからない": { t:"契約内容の確認から", d:"検針票から契約先・プラン名・契約電力・使用量を書き出すことが、あらゆる見直しの出発点になります。" }
 };
 var ACT_INDUSTRY = {
   "飲食店・カフェ":   { t:"アイドルタイムの空調・照明運用", d:"客足の少ない時間帯の空調設定と、客席照明のゾーニングを見直します。" },
@@ -399,30 +618,17 @@ var ACT_INDUSTRY = {
   "工場・作業場":     { t:"デマンド監視によるピークカット", d:"最大需要電力の発生タイミングを可視化し、機器の起動タイミングを分散させます。" },
   "倉庫・物流":       { t:"高天井照明の見直し", d:"点灯エリアの絞り込みと、動線に応じた点灯制御を検討します。" },
   "宿泊・宿":         { t:"客室不在時の空調制御", d:"チェックアウト後・不在時の空調と客室設備の自動停止を運用に組み込みます。" },
-  "その他":           { t:"使用量の見える化", d:"月次の使用量（kWh）を記録し、季節変動と業務量の関係を把握します。" },
-  "わからない":       { t:"使用量の見える化", d:"月次の使用量（kWh）を記録し、季節変動と業務量の関係を把握します。" }
+  "その他":           { t:"使用量の見える化", d:"月次の使用量（kWh）を記録し、季節変動と業務量の関係を把握します。" }
 };
 var ACT_MULTI = { t:"複数契約の一括見直し", d:"契約ごとに条件がばらついているケースが多いため、全契約を一覧化し、条件を揃えて交渉することで交渉力が高まります。" };
 
 /* =========================================================================
-   3. 状態と描画
+   2. 画面
    ========================================================================= */
-var state = { step:-1, answers:{ equipment:[] } };
-var app = document.getElementById("app");
-var stickyBox = document.getElementById("sticky");
+var $ = function(id){ return document.getElementById(id); };
+var yen = function(n){ return Math.round(n).toLocaleString("ja-JP"); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
 
-function yen(n){ return Math.round(n).toLocaleString("ja-JP"); }
-function esc(s){
-  return String(s).replace(/[&<>"]/g, function(c){
-    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
-  });
-}
-function setSticky(html){
-  stickyBox.innerHTML = html ? '<div class="sticky noprint">' + html + '</div>' : "";
-  document.body.classList.toggle("has-sticky", !!html);
-}
-
-/** 全角数字・カンマ・円記号を許容して数値化 */
 function parseYen(raw){
   if(raw == null) return NaN;
   var s = String(raw)
@@ -432,377 +638,192 @@ function parseYen(raw){
   return parseFloat(s);
 }
 
-/** 契約数の選択に応じた金額入力の見出し */
-function billLabel(){
-  var c = state.answers.contracts;
-  if(c && c !== "1件" && c !== "わからない") return "全" + c + "分を合わせて、直近1ヶ月の電気代はいくらでしたか";
-  return "直近1ヶ月の電気代はいくらでしたか";
-}
+/* ---- キャンペーン表示の反映 ---- */
+(function initCampaign(){
+  if(!CAMPAIGN.enabled) return;
+  $("promo").hidden = false;
+  $("promoPrize").textContent = CAMPAIGN.prize;
+  $("promoNote").textContent = CAMPAIGN.winners + " ／ 応募期間：" + CAMPAIGN.period + "　詳しい条件は下部の「抽選キャンペーンについて」をご確認ください。";
+  $("promoOptIn").hidden = false;
+  $("promoPrize2").textContent = CAMPAIGN.prize;
+  $("terms").hidden = false;
+  $("tPrize").textContent     = CAMPAIGN.prize;
+  $("tWinners").textContent   = CAMPAIGN.winners;
+  $("tPeriod").textContent    = CAMPAIGN.period;
+  $("tCondition").textContent = CAMPAIGN.condition;
+  $("tAnnounce").textContent  = CAMPAIGN.announce;
+  $("tNotes").textContent     = CAMPAIGN.notes;
 
-function render(){
-  if(state.step === -1) return renderIntro();
-  if(state.step < QUESTIONS.length) return renderQuestion(QUESTIONS[state.step]);
-  return renderResult();
-}
-
-/* ---- イントロ ----------------------------------------------------------
-   ・見出しは「所要時間」と「得られるもの」を先に提示（不確実性の除去）
-   ・損失回避フレームで「今も出ていっている」ことを可視化
-   ・不安要素（費用・登録・営業）を先回りで打ち消す
-   ------------------------------------------------------------------------ */
-function renderIntro(){
-  document.getElementById("disclaimer").hidden = true;
-  app.innerHTML =
-    '<section class="card pad hero fade">' +
-      '<h2>いまの電気代、<br><em>あと いくら下げられるか</em>。<br>30秒でわかります。</h2>' +
-      '<p class="lead-p">法人・個人事業主（屋号あり）の皆さま向けの、かんたんな試算です。7つの質問に答えるだけで、削減余地の目安が出ます。</p>' +
-      '<div class="loss">電気の契約は、見直さないかぎり自動で更新され続けます。<b>差額はそのまま毎月の固定費として出ていきます。</b>まずは金額を把握するところからです。</div>' +
-      '<ul class="chips"><li>全7問</li><li>約30秒</li><li>登録不要</li><li>費用なし</li></ul>' +
-      '<button class="btn" id="start">無料で削減額を見る<span class="arw">&rarr;</span></button>' +
-      '<ul class="reassure">' +
-        '<li>会社名・ご連絡先の入力なしで、結果まですべてご覧いただけます</li>' +
-        '<li>入力した内容が、自動で外部に送信されることはありません</li>' +
-        '<li>正確な金額がわからなくても、おおよそで試算できます</li>' +
-      '</ul>' +
-    '</section>';
-  document.getElementById("start").onclick = start;
-  setSticky('<button class="btn" id="startS">無料で削減額を見る<span class="arw">&rarr;</span></button>');
-  var s = document.getElementById("startS");
-  if(s) s.onclick = start;
-
-  function start(){ state.step = 0; render(); window.scrollTo(0,0); }
-}
-
-/* ---- 設問 --------------------------------------------------------------
-   ・進捗バーは15%から開始（授かり進捗効果：既に始まっている課題は完了させたくなる）
-   ・「あと◯問」を明示（目標勾配効果：残りが少ないほど加速する）
-   ------------------------------------------------------------------------ */
-function renderQuestion(q){
-  document.getElementById("disclaimer").hidden = true;
-  setSticky("");
-
-  var total = QUESTIONS.length;
-  var pct = Math.round(15 + 85 * (state.step / total));   // 15%スタート
-  var left = total - state.step;
-  var body = "";
-
-  if(q.type === "single" || q.type === "multi"){
-    var sel = state.answers[q.id];
-    body =
-      '<div class="opts ' + (q.grid ? "grid2" : "") + '" role="group">' +
-      q.options.map(function(o){
-        var on = q.type === "multi" ? (sel || []).indexOf(o) >= 0 : sel === o;
-        return '<button type="button" class="opt ' + (q.type === "multi" ? "multi" : "") + '" ' +
-               'aria-pressed="' + on + '" data-v="' + esc(o) + '">' +
-               '<span class="mark" aria-hidden="true"></span><span>' + esc(o) + '</span></button>';
-      }).join("") +
-      '</div>';
-  } else {
-    var cur = state.answers.bill != null ? state.answers.bill : "";
-    body =
-      '<div class="money-in"><input type="text" inputmode="numeric" id="bill" ' +
-        'placeholder="0" value="' + esc(cur) + '" aria-label="直近1ヶ月の電気代"><span class="unit">円 / 月</span></div>' +
-      '<div class="err" id="billErr" role="alert"></div>' +
-      '<p class="hint">1円単位まで正確でなくて構いません。おおよその金額で試算できます。</p>';
-  }
-
-  app.innerHTML =
-    '<section class="card pad fade">' +
-      '<div class="progress noprint">' +
-        '<div class="meta"><span>質問 ' + (state.step + 1) + ' / ' + total + '</span>' +
-        '<span>' + (left === 1 ? '<b>これが最後の質問です</b>' : 'あと <b>' + left + '問</b>') + '</span></div>' +
-        '<div class="bar"><span style="width:' + pct + '%"></span></div>' +
-      '</div>' +
-      '<h2 class="q-title">' + esc(q.type === "number" ? billLabel() : q.title) + '</h2>' +
-      '<p class="q-note">' + esc(q.note ? q.note : (q.type === "multi" ? "当てはまるものをすべてお選びください。" : "当てはまるものを1つお選びください。")) + '</p>' +
-      body +
-      '<div class="btnrow">' +
-        (q.type !== "single" ? '<button class="btn" id="next">' + (q.type === "number" ? "結果を見る" : "次へ進む") + '<span class="arw">&rarr;</span></button>' : '') +
-        (state.step > 0 ? '<button class="btn ghost" id="back">&larr; 戻る</button>' : '') +
-      '</div>' +
-    '</section>';
-
-  var back = document.getElementById("back");
-  if(back) back.onclick = function(){ state.step--; render(); };
-
-  if(q.type === "single"){
-    Array.prototype.forEach.call(app.querySelectorAll(".opt"), function(el){
-      el.onclick = function(){
-        state.answers[q.id] = el.dataset.v;
-        state.step++;
-        render();
-      };
+  /* 「要記入」が残っている間は、公開前チェックのお知らせを出す */
+  var pending = ["prize","winners","period"].some(function(k){
+    return String(CAMPAIGN[k]).indexOf("要記入") >= 0;
+  });
+  if(pending){
+    $("setupNotice").hidden = false;
+    ["tPrize","tWinners","tPeriod"].forEach(function(id){
+      var el = $(id);
+      if(el.textContent.indexOf("要記入") >= 0){
+        el.innerHTML = '<span class="todo">' + esc(el.textContent) + '</span>';
+      }
     });
   }
+})();
 
-  if(q.type === "multi"){
-    Array.prototype.forEach.call(app.querySelectorAll(".opt"), function(el){
-      el.onclick = function(){
-        var v = el.dataset.v;
-        var sel = state.answers[q.id] || [];
-        var isEx = (q.exclusive || []).indexOf(v) >= 0;
-        if(sel.indexOf(v) >= 0){
-          sel = sel.filter(function(x){ return x !== v; });
-        } else if(isEx){
-          sel = [v];
-        } else {
-          sel = sel.filter(function(x){ return (q.exclusive || []).indexOf(x) < 0; }).concat([v]);
-        }
-        state.answers[q.id] = sel;
-        render();
-      };
+/* ---- 契約件数のステッパー ---- */
+var count = 1;
+function renderCount(){ $("cnt").textContent = count; }
+$("inc").onclick = function(){ if(count < 99){ count++; renderCount(); } };
+$("dec").onclick = function(){ if(count > 1){ count--; renderCount(); } };
+
+/* ---- ご相談方法の選択 ---- */
+var how = "";
+Array.prototype.forEach.call($("how").querySelectorAll(".pill"), function(b){
+  b.onclick = function(){
+    how = b.dataset.v;
+    Array.prototype.forEach.call($("how").querySelectorAll(".pill"), function(x){
+      x.setAttribute("aria-pressed", String(x === b));
     });
-    document.getElementById("next").onclick = function(){
-      if(!(state.answers[q.id] || []).length) state.answers[q.id] = ["わからない"];
-      state.step++;
-      render();
-    };
-  }
-
-  if(q.type === "number"){
-    var input = document.getElementById("bill");
-    var err = document.getElementById("billErr");
-    var go = function(){
-      var v = parseYen(input.value);
-      if(isNaN(v)){ err.textContent = "半角数字でご入力ください。"; input.focus(); return; }
-      if(v < 1000){ err.textContent = "1,000円以上の金額をご入力ください。"; input.focus(); return; }
-      if(v > 10000000){ err.textContent = "1,000万円を超えています。桁をご確認ください。"; input.focus(); return; }
-      state.answers.bill = v;
-      state.step++;
-      render();
-    };
-    document.getElementById("next").onclick = go;
-    input.addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); go(); } });
-    input.addEventListener("input", function(){ err.textContent = ""; });
-    input.focus();
-  }
-}
-
-/* ---- 施策の組み立て（最大3件） ---- */
-function buildActions(a){
-  var out = [];
-  function push(o){
-    if(!o) return;
-    for(var i = 0; i < out.length; i++){ if(out[i].t === o.t) return; }
-    out.push(o);
-  }
-  push(ACT_PROVIDER[a.provider] || ACT_PROVIDER["わからない"]);
-  if(a.contracts && a.contracts !== "1件" && a.contracts !== "わからない") push(ACT_MULTI);
-  (a.equipment || []).forEach(function(e){ push(ACT_EQUIP[e]); });
-  push(ACT_INDUSTRY[a.industry] || ACT_INDUSTRY["その他"]);
-  return out.slice(0, 3);
-}
-
-/* ---- 結果 --------------------------------------------------------------
-   ・年間額を最上部・最大サイズで提示（アンカリング：以後の金額の基準になる）
-   ・同じ金額を「得られる額」と「払い続ける額」の両面で提示（フレーミング効果）
-   ・連絡先を聞くのは結果を見せた後（返報性：先に価値を渡す）
-   ------------------------------------------------------------------------ */
-function renderResult(){
-  var a = state.answers;
-  var bill = a.bill;
-  var save = monthlySaving(bill);                 // 月間削減額（繰り上げ済み）
-  var saveY = save * 12;                          // 年間削減額
-  var nowY = bill * 12;                           // 現在の年間電気料金
-  var afterY = Math.max(nowY - saveY, 0);         // 削減後の年間電気料金
-  var rank = RANKS[a.provider] || RANKS["わからない"];
-  var acts = buildActions(a);
-  var multi = a.contracts && a.contracts !== "1件" && a.contracts !== "わからない";
-  function w(v){ return Math.max(nowY > 0 ? v / nowY * 100 : 0, 3); }
-
-  /* 結果はメール送信の本文にも使うため保持しておく */
-  state.result = { save:save, saveY:saveY, nowY:nowY, rank:rank.badge + "（" + rank.label + "）" };
-
-  app.innerHTML =
-  '<section class="card pad fade">' +
-    '<p class="result-head">シミュレーション結果</p>' +
-
-    '<div class="headline">' +
-      '<div class="lbl">あなたの事業所で見込める</div>' +
-      '<div class="lbl">年間の削減額の目安</div>' +
-      '<div class="big">' + yen(saveY) + '<small>円</small></div>' +
-      '<div class="flip">これは、見直しをしないまま1年間で<b>余分に支払う可能性のある額</b>でもあります。</div>' +
-    '</div>' +
-
-    '<div class="subkpis">' +
-      '<div class="kpi"><div class="lbl">1ヶ月あたり</div><div class="val">' + yen(save) + '<small>円</small></div></div>' +
-      '<div class="kpi"><div class="lbl">見直しの優先度</div>' +
-        '<div class="val"><span class="rank ' + rank.key + '"><span class="badge">' + rank.badge + '</span>' +
-        '<span class="txt">' + esc(rank.label) + '</span></span></div></div>' +
-    '</div>' +
-
-    (multi ? '<div class="note">ご入力いただいた <b>' + esc(a.contracts) + '</b> 分を合算した試算です。</div>' : '') +
-
-    '<div class="cols">' +
-      '<div>' +
-        '<h3 class="sec">年間コストの比較</h3>' +
-        '<div class="chart">' +
-          '<div class="row"><div class="rl"><span>現在（年間）</span><b>' + yen(nowY) + ' 円</b></div>' +
-            '<div class="track now"><span style="width:' + w(nowY) + '%"></span></div></div>' +
-          '<div class="row"><div class="rl"><span>見直し後（想定・年間）</span><b>' + yen(afterY) + ' 円</b></div>' +
-            '<div class="track after"><span style="width:' + w(afterY) + '%"></span></div></div>' +
-          '<p class="cap">直近1ヶ月のご入力金額 ' + yen(bill) + ' 円を12ヶ月分に換算した簡易試算です。</p>' +
-        '</div>' +
-        '<div class="note">' + esc(rank.desc) + '</div>' +
-      '</div>' +
-      '<div>' +
-        '<h3 class="sec">今すぐ着手できる施策</h3>' +
-        '<ol class="acts">' +
-          acts.map(function(x){ return '<li><b>' + esc(x.t) + '</b><p>' + esc(x.d) + '</p></li>'; }).join("") +
-        '</ol>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="btnrow noprint">' +
-      '<button class="btn ghost" id="print">結果を印刷／PDF保存</button>' +
-      '<button class="btn ghost" id="again">条件を変えてもう一度</button>' +
-    '</div>' +
-  '</section>' +
-
-  /* ===== 任意ブロック：問い合わせ獲得が不要なら、この section ごと削除 ===== */
-  '<section class="card pad lead noprint fade" id="leadSec">' +
-    '<h3 class="sec">この結果をもとに、正確な試算をお送りします（無料）</h3>' +
-    '<p class="q-note">上の金額はあくまで目安です。実際の検針票をもとにした精密な試算を、担当者が無料で作成してお送りします。</p>' +
-    '<form id="leadForm" novalidate>' +
-      '<div class="fields">' +
-        '<div class="field"><label for="f3">メールアドレス<span class="req">必須</span></label>' +
-          '<input type="email" id="f3" name="email" autocomplete="email" placeholder="example@company.co.jp"></div>' +
-        '<div class="field"><label for="f1">会社名 / 屋号<span class="opt-tag">任意</span></label>' +
-          '<input type="text" id="f1" name="company" autocomplete="organization"></div>' +
-        '<div class="field"><label for="f2">ご担当者名<span class="opt-tag">任意</span></label>' +
-          '<input type="text" id="f2" name="name" autocomplete="name"></div>' +
-        '<div class="field"><label for="f4">電話番号<span class="opt-tag">任意</span></label>' +
-          '<input type="tel" id="f4" name="tel" autocomplete="tel" placeholder="お急ぎの場合のみ"></div>' +
-      '</div>' +
-      '<ul class="reassure" style="margin-top:16px">' +
-        '<li>ご入力は必須1項目のみ。30秒で完了します</li>' +
-        '<li>ご入力内容を他社に提供することはありません</li>' +
-        '<li>しつこい営業のお電話はいたしません</li>' +
-      '</ul>' +
-      '<label class="agree"><input type="checkbox" id="agree"><span><a href="./privacy.html" id="policyLink" target="_blank" rel="noopener">プライバシーポリシー</a>に同意して送信します</span></label>' +
-      '<div class="btnrow"><button class="btn" type="submit">無料で正確な試算を依頼する<span class="arw">&rarr;</span></button></div>' +
-      '<div class="err" id="leadMsg" role="status"></div>' +
-      '<p class="autonomy">ご入力は任意です。送信されなくても、結果はこのまま無料でご覧いただけます。判断はお客さまにお任せします。</p>' +
-    '</form>' +
-  '</section>';
-  /* ===== 任意ブロックここまで ===== */
-
-  setSticky("");
-
-  document.getElementById("again").onclick = function(){
-    state.step = -1;
-    state.answers = { equipment:[] };
-    render();
-    window.scrollTo(0, 0);
   };
-  document.getElementById("print").onclick = function(){ window.print(); };
+});
 
-  var form = document.getElementById("leadForm");
-  if(form) form.onsubmit = submitLead;
-  var pl = document.getElementById("policyLink");
-  if(pl) pl.addEventListener("click", function(e){ e.stopPropagation(); });
-
-  var d = document.getElementById("disclaimer");
-  d.hidden = false;
-  d.innerHTML = '<hr class="sep">本シミュレーションは、ご入力いただいた直近1ヶ月の電気料金をもとにした簡易試算であり、実際の削減額をお約束するものではありません。' +
-    '実際の料金・削減効果は契約プラン、契約電力、使用状況、燃料費調整額、再生可能エネルギー発電促進賦課金等により変動します。' +
-    '正確な金額は検針票および各電力会社・小売電気事業者の公式情報をご確認ください。' +
-    '本シミュレーションは電力契約の勧誘・媒介を目的とするものではありません。';
-
-  window.scrollTo(0, 0);
-}
+/* ---- 固定CTA（スマホのみ。予約フォームに到達したら消す） ---- */
+(function stickyCta(){
+  var box = $("stickyBox");
+  box.innerHTML = '<div class="sticky"><a class="btn" href="#sim">かんたん30秒で試してみる &rarr;</a></div>';
+  document.body.classList.add("has-sticky");
+  var target = $("reserve");
+  if(!("IntersectionObserver" in window)) return;
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      box.style.display = e.isIntersecting ? "none" : "";
+      document.body.classList.toggle("has-sticky", !e.isIntersecting);
+    });
+  }, { threshold:0 }).observe(target);
+})();
 
 /* =========================================================================
-   4. 問い合わせの送信
-   -------------------------------------------------------------------------
-   SUBMIT_ENDPOINT（Google Apps Script）が設定されていれば自動でメール送信。
-   未設定の場合は mailto: で送信者のメールソフトを起動する方式に切り替わる。
+   3. シミュレーション実行
+   ========================================================================= */
+var state = { bill:null, provider:"", industry:"", count:1, save:0, saveY:0, priority:"" };
+
+$("run").onclick = function(){
+  var err = $("err");
+  err.textContent = "";
+
+  var bill = parseYen($("bill").value);
+  if(isNaN(bill)){ err.textContent = "直近1ヶ月の電気代を半角数字でご入力ください。"; $("bill").focus(); return; }
+  if(bill < 1000){ err.textContent = "1,000円以上の金額をご入力ください。"; $("bill").focus(); return; }
+  if(bill > 10000000){ err.textContent = "1,000万円を超えています。桁をご確認ください。"; $("bill").focus(); return; }
+
+  var provider = $("provider").value;
+  if(!provider){ err.textContent = "現在の電力の契約先をお選びください。"; $("provider").focus(); return; }
+  var industry = $("industry").value;
+  if(!industry){ err.textContent = "業種をお選びください。"; $("industry").focus(); return; }
+
+  var save  = monthlySaving(bill);
+  var saveY = save * 12;
+  var nowY  = bill * 12;
+  var aftY  = Math.max(nowY - saveY, 0);
+  var pr    = PRIORITY[provider] || PRIORITY["わからない"];
+
+  state = { bill:bill, provider:provider, industry:industry, count:count,
+            save:save, saveY:saveY, priority:pr.key + "（" + pr.label + "）" };
+
+  $("rY").innerHTML = yen(saveY) + '<small>円</small>';
+  $("rM").innerHTML = yen(save) + '<small>円</small>';
+  $("rP").textContent = pr.key + "　" + pr.label;
+  $("bNow").textContent = yen(nowY) + " 円";
+  $("bAft").textContent = yen(aftY) + " 円";
+  $("bAftBar").style.width = Math.max(nowY > 0 ? aftY / nowY * 100 : 0, 3) + "%";
+  $("bCap").textContent = "直近1ヶ月のご入力金額 " + yen(bill) + " 円を12ヶ月分に換算した簡易試算です。"
+    + (count > 1 ? "ご入力いただいた " + count + " 件分を合算しています。" : "");
+
+  var acts = [];
+  acts.push(ACT_PROVIDER[provider] || ACT_PROVIDER["わからない"]);
+  if(count > 1) acts.push(ACT_MULTI);
+  acts.push(ACT_INDUSTRY[industry] || ACT_INDUSTRY["その他"]);
+  $("acts").innerHTML = acts.slice(0,3).map(function(a){
+    return '<li><b>' + esc(a.t) + '</b><p>' + esc(a.d) + '</p></li>';
+  }).join("");
+
+  var r = $("result");
+  r.classList.add("on");
+  r.scrollIntoView({ behavior:"smooth", block:"start" });
+};
+
+$("bill").addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); $("run").click(); } });
+$("policyLink").addEventListener("click", function(e){ e.stopPropagation(); });
+
+/* =========================================================================
+   4. 予約の送信
    ========================================================================= */
 function buildPayload(){
-  var a = state.answers, r = state.result || {};
-  var v = function(id){ var el = document.getElementById(id); return el ? el.value.trim() : ""; };
-  return {
-    "サイト名": SITE_NAME,
+  var p = {
+    "サイト名": SITE_NAME + "／無料相談のご予約",
     "送信日時": new Date().toLocaleString("ja-JP"),
     "流入経路": SRC,
-    "メールアドレス": v("f3"),
-    "会社名／屋号": v("f1") || "（未入力）",
-    "ご担当者名": v("f2") || "（未入力）",
-    "電話番号": v("f4") || "（未入力）",
-    "――― 入力内容 ―――": "",
-    "事業形態": a.bizType || "",
-    "業種": a.industry || "",
-    "エリア": a.area || "",
-    "契約数": a.contracts || "",
-    "主な設備": (a.equipment || []).join("・"),
-    "現在の契約先": a.provider || "",
-    "直近1ヶ月の電気代": yen(a.bill) + " 円",
-    "想定 月間削減額": yen(r.save) + " 円",
-    "想定 年間削減額": yen(r.saveY) + " 円",
-    "見直しの優先度": r.rank || "",
-    "ページURL": location.href
+    "ご希望の時間帯": $("slot").value,
+    "お名前": $("name").value.trim(),
+    "電話番号": $("tel").value.trim(),
+    "メールアドレス": $("email").value.trim(),
+    "会社名／屋号": $("company").value.trim() || $("name").value.trim() || "（未入力）",
+    "ご相談方法": how,
+    "――― シミュレーション内容 ―――": ""
   };
+  if(state.bill){
+    p["業種"] = state.industry;
+    p["契約件数"] = state.count + "件";
+    p["現在の契約先"] = state.provider;
+    p["直近1ヶ月の電気代"] = yen(state.bill) + " 円";
+    p["想定 月間削減額"] = yen(state.save) + " 円";
+    p["想定 年間削減額"] = yen(state.saveY) + " 円";
+    p["見直しの優先度"] = state.priority;
+  } else {
+    p["シミュレーション"] = "未実施のままご予約";
+  }
+  if(CAMPAIGN.enabled){
+    p["抽選キャンペーン応募"] = $("joinPromo").checked ? "応募する（" + CAMPAIGN.prize + "）" : "応募しない";
+  }
+  p["ページURL"] = location.href;
+  return p;
 }
 
-function submitLead(e){
+$("form").onsubmit = function(e){
   e.preventDefault();
-  var msg = document.getElementById("leadMsg");
-  var email = document.getElementById("f3").value.trim();
+  var msg = $("fErr");
+  msg.style.color = "var(--warn)";
 
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    msg.style.color = "var(--warn)";
-    msg.textContent = "メールアドレスの形式をご確認ください。";
-    document.getElementById("f3").focus();
-    return;
-  }
-  if(!document.getElementById("agree").checked){
-    msg.style.color = "var(--warn)";
-    msg.textContent = "プライバシーポリシーへの同意にチェックをお願いします。";
-    return;
-  }
+  if(!$("slot").value){ msg.textContent = "ご希望の時間帯をお選びください。"; $("slot").focus(); return; }
+  if($("name").value.trim().length < 1){ msg.textContent = "お名前をご入力ください。"; $("name").focus(); return; }
+  var tel = $("tel").value.replace(/[^\d]/g, "");
+  if(tel.length < 10 || tel.length > 11){ msg.textContent = "電話番号をご確認ください（ハイフンなしで10桁または11桁）。"; $("tel").focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim())){ msg.textContent = "メールアドレスの形式をご確認ください。"; $("email").focus(); return; }
+  if(!how){ msg.textContent = "ご相談方法をお選びください。"; return; }
+  if(!$("agree").checked){ msg.textContent = "プライバシーポリシーへの同意にチェックをお願いします。"; return; }
 
-  var payload = buildPayload();
-  var btn = document.querySelector("#leadForm button[type=submit]");
+  var btn = $("send");
   btn.disabled = true;
   btn.textContent = "送信中...";
 
-  if(SUBMIT_ENDPOINT){
-    /* Google Apps Script はブラウザ側でレスポンスを読めないため no-cors で送信する */
-    fetch(SUBMIT_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    }).then(showDone).catch(function(){
-      btn.disabled = false;
-      btn.textContent = "無料で正確な試算を依頼する";
-      msg.style.color = "var(--warn)";
-      msg.textContent = "送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。";
-    });
-  } else {
-    /* フォールバック：送信者のメールソフトを起動する */
-    var body = Object.keys(payload).map(function(k){
-      return payload[k] === "" && k.indexOf("―") === 0 ? "\n" + k + "\n" : k + "： " + payload[k];
-    }).join("\n");
-    var href = "mailto:" + NOTIFY_EMAIL +
-      "?subject=" + encodeURIComponent("【" + SITE_NAME + "】試算のご依頼") +
-      "&body=" + encodeURIComponent(body);
-    location.href = href;
-    setTimeout(showDone, 600);
-  }
-
-  function showDone(){
-    document.getElementById("leadSec").innerHTML =
+  fetch(SUBMIT_ENDPOINT, {
+    method:"POST", mode:"no-cors",
+    headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    body: JSON.stringify(buildPayload())
+  }).then(function(){
+    $("formBox").innerHTML =
       '<div class="done">' +
-        '<div class="ttl">送信が完了しました</div>' +
-        '<p style="margin:0;font-size:14px">ありがとうございます。担当者より、原則1営業日以内にご連絡いたします。<br>' +
-        'この画面は「結果を印刷／PDF保存」から保存しておけます。</p>' +
-      '</div>';
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-  }
-}
-
-render();
+        '<div class="t">ご予約を承りました</div>' +
+        '<p style="margin:0;font-size:14px">ありがとうございます。担当者より、原則1営業日以内にご連絡いたします。' +
+        (CAMPAIGN.enabled && $("joinPromo").checked
+          ? '<br>抽選キャンペーンへのご応募も受け付けました。' : '') +
+        '</p></div>';
+    $("formBox").scrollIntoView({ behavior:"smooth", block:"center" });
+  }).catch(function(){
+    btn.disabled = false;
+    btn.textContent = "この内容で予約する";
+    msg.textContent = "送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。";
+  });
+};
 </script>
 </body>
 </html>
