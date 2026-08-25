@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プライバシーポリシー｜かんたん電気代シミュレーション</title>
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f2f5f9;
+  --border:#e0e5ec; --text:#101828; --muted:#5b6779;
+  --trust:#123a6b; --trust-2:#2f6fd0; --trust-soft:#e9f0fa;
+  --todo-bg:#fff3cd; --todo-fg:#7a5600; --todo-bd:#e0b93c;
+  --shadow:0 1px 2px rgba(16,32,56,.05), 0 10px 28px rgba(16,32,56,.07);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c1017; --surface:#151b24; --surface-2:#1b232e;
+    --border:#2a3441; --text:#e8eef6; --muted:#98a5b7;
+    --trust:#7fb0f0; --trust-2:#9cc4fa; --trust-soft:#152437;
+    --todo-bg:#3a2f0c; --todo-fg:#ffd978; --todo-bd:#7a6320;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 10px 28px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); line-height:1.9;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:800px;margin:0 auto;padding:20px 16px 64px}
+header.site{display:flex;align-items:center;gap:10px;padding:2px 0 18px}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--trust);display:grid;place-items:center;color:#fff;font-size:16px}
+@media (prefers-color-scheme: dark){ .logo{color:#0c1017} }
+header.site h1{font-size:14.5px;margin:0;font-weight:700}
+.back{margin-left:auto;font-size:12.5px;color:var(--trust-2);text-decoration:none;font-weight:700}
+.back:hover{text-decoration:underline}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 22px}
+@media(min-width:720px){ .card{padding:44px 48px} }
+
+h2.doc{font-size:23px;margin:0 0 6px;letter-spacing:-.01em}
+.meta{font-size:12.5px;color:var(--muted);margin:0 0 26px}
+.intro{font-size:14.5px;margin:0 0 30px}
+
+h3{font-size:16px;margin:32px 0 10px;padding-left:11px;border-left:3px solid var(--trust);line-height:1.5}
+h3:first-of-type{margin-top:0}
+p,li{font-size:14.5px}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px;padding-left:1.5em}
+li{margin-bottom:6px}
+dl{margin:0 0 12px}
+dt{font-weight:700;font-size:14px;margin-top:12px}
+dd{margin:2px 0 0 1.2em;font-size:14.5px;color:var(--muted)}
+
+table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:14px}
+th,td{border:1px solid var(--border);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:700;width:34%}
+
+.todo{
+  background:var(--todo-bg);color:var(--todo-fg);border:1px dashed var(--todo-bd);
+  border-radius:6px;padding:1px 8px;font-weight:800;font-size:.94em;white-space:nowrap;
+}
+.notice{
+  background:var(--todo-bg);color:var(--todo-fg);border:2px solid var(--todo-bd);
+  border-radius:10px;padding:16px 18px;margin:0 0 30px;font-size:13.5px;line-height:1.85;
+}
+.notice b{display:block;margin-bottom:6px;font-size:14.5px}
+.notice ul{margin:8px 0 0;padding-left:1.3em}
+.notice li{font-size:13.5px;margin-bottom:3px}
+
+footer.foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted)}
+footer.foot a{color:var(--trust-2)}
+@media print{ .notice{display:none} body{background:#fff;color:#000} .card{box-shadow:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <div class="logo">&#9889;</div>
+    <h1>かんたん電気代シミュレーション</h1>
+    <a class="back" href="./">&larr; シミュレーションに戻る</a>
+  </header>
+
+  <main class="card">
+
+    <!-- ================================================================
+         このお知らせは、公開前に削除してください。
+         削除するには、この <div class="notice"> ... </div> を丸ごと消します。
+         ================================================================ -->
+    <div class="notice">
+      <b>&#9888; 公開前に記入が必要な項目があります</b>
+      本ページには、事業者情報など確認が取れていない箇所を <span class="todo">要記入</span> として残してあります。
+      すべて埋めたうえで、法務のご確認を受けてから公開してください。
+      <ul>
+        <li>事業者名・所在地・代表者名</li>
+        <li>お問い合わせ窓口（メールアドレス・受付時間）</li>
+        <li><b>第7条（第三者提供）</b>：小売電気事業者などへ情報を提供する運用なら、必ず提供先と項目を明記してください</li>
+        <li>第8条の保有期間が実際の運用と合っているか</li>
+      </ul>
+      この注意書き自体も、公開前に削除してください（HTML内のコメントに手順があります）。
+    </div>
+    <!-- ================ お知らせここまで ================ -->
+
+    <h2 class="doc">プライバシーポリシー</h2>
+    <p class="meta">制定日：2026年8月25日</p>
+
+    <p class="intro">
+      <span class="todo">要記入：事業者名</span>（以下「当社」といいます）は、当社が提供するウェブサービス
+      「かんたん電気代シミュレーション」（以下「本サービス」といいます）における利用者の個人情報の取扱いについて、
+      以下のとおりプライバシーポリシー（以下「本ポリシー」といいます）を定めます。
+    </p>
+
+    <h3>第1条（事業者の情報）</h3>
+    <table>
+      <tr><th>事業者名</th><td><span class="todo">要記入：事業者名</span></td></tr>
+      <tr><th>所在地</th><td><span class="todo">要記入：所在地</span></td></tr>
+      <tr><th>代表者</th><td><span class="todo">要記入：代表者名</span></td></tr>
+      <tr><th>個人情報の取扱いに関する窓口</th><td><span class="todo">要記入：担当部署・メールアドレス</span></td></tr>
+    </table>
+
+    <h3>第2条（取得する情報）</h3>
+    <p>当社は、本サービスにおいて以下の情報を取得します。</p>
+    <dl>
+      <dt>(1) お問い合わせフォームにご入力いただく情報</dt>
+      <dd>
+        メールアドレス（必須）／会社名・屋号（任意）／ご担当者名（任意）／電話番号（任意）
+      </dd>
+      <dt>(2) シミュレーションにご入力いただく情報</dt>
+      <dd>
+        事業形態、業種、事業所の所在エリア、電力契約の契約数、主な設備、現在の電力契約先、
+        直近1ヶ月の電気料金、および本サービスが算出した試算結果
+      </dd>
+      <dt>(3) 送信時に自動的に記録される情報</dt>
+      <dd>
+        送信日時、アクセス元を識別するためのパラメータ（QRコード等の流入経路）、送信元ページのURL
+      </dd>
+    </dl>
+    <p>
+      <b>シミュレーションのみをご利用の場合、情報は一切送信されません。</b>
+      第2条(2)および(3)の情報は、利用者がお問い合わせフォームを送信した場合に限り、
+      (1)の情報とあわせて当社に送信されます。フォームを送信しない場合、
+      ご入力内容は利用者のブラウザ内でのみ処理され、当社を含むいかなる第三者にも送信されません。
+    </p>
+
+    <h3>第3条（利用目的）</h3>
+    <p>当社は、取得した情報を以下の目的で利用します。</p>
+    <ol>
+      <li>お問い合わせに対する回答および必要な情報のご連絡のため</li>
+      <li>利用者の電力契約に関する詳細な試算の作成およびご提案のため</li>
+      <li>本サービスの品質向上および利用状況の分析のため</li>
+      <li>法令に基づく対応のため</li>
+    </ol>
+    <p>当社は、上記の目的の範囲を超えて個人情報を利用することはありません。</p>
+
+    <h3>第4条（Cookie等の利用）</h3>
+    <p>
+      本サービスは、Cookieおよびこれに類する技術を利用していません。
+      また、アクセス解析ツールおよび広告配信のためのトラッキングも導入していません。
+    </p>
+
+    <h3>第5条（外部サービスの利用）</h3>
+    <p>本サービスの提供にあたり、以下の外部サービスを利用しています。</p>
+    <table>
+      <tr><th>GitHub Pages<br>（GitHub, Inc.）</th>
+          <td>本サービスのウェブページの配信に利用しています。同社のサーバーにおいて、
+              アクセス日時・IPアドレス等の通信記録が取得される場合があります。</td></tr>
+      <tr><th>Google Apps Script／Gmail<br>（Google LLC）</th>
+          <td>お問い合わせ内容の受信および当社への通知に利用しています。
+              送信内容は同社のサーバーを経由し、当社のメールアカウントに保存されます。</td></tr>
+    </table>
+    <p>これらのサービスにおける情報の取扱いは、各社のプライバシーポリシーに従います。</p>
+
+    <h3>第6条（安全管理措置）</h3>
+    <p>
+      当社は、取得した個人情報の漏えい、滅失または毀損を防止するため、必要かつ適切な安全管理措置を講じます。
+      本サービスと利用者のブラウザとの間の通信、および前条の外部サービスとの通信は、
+      いずれもTLSにより暗号化されています。
+    </p>
+
+    <h3>第7条（第三者提供）</h3>
+    <p>
+      当社は、次に掲げる場合を除き、あらかじめ利用者の同意を得ることなく、
+      個人情報を第三者に提供することはありません。
+    </p>
+    <ol>
+      <li>法令に基づく場合</li>
+      <li>人の生命、身体または財産の保護のために必要がある場合であって、本人の同意を得ることが困難であるとき</li>
+      <li>国の機関若しくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+    </ol>
+    <p class="todo" style="display:block;white-space:normal;padding:12px 14px;border-radius:8px">
+      要記入：小売電気事業者・提携先へ情報を提供する運用の場合は、この条文のままでは実態と一致しません。
+      提供先の範囲、提供する項目、提供の目的、提供方法を明記したうえで、
+      フォームの同意取得の文言も「第三者提供に同意する」旨に修正してください。
+    </p>
+
+    <h3>第8条（保有期間）</h3>
+    <p>
+      当社は、利用目的の達成に必要な期間に限り個人情報を保有し、利用目的を達成した後は、
+      <span class="todo">要記入：保有期間（例：最終のご連絡から3年）</span>を経過した時点で
+      速やかに消去または廃棄します。
+    </p>
+
+    <h3>第9条（開示、訂正、利用停止等の請求）</h3>
+    <p>
+      利用者は、当社の保有する自己の個人情報について、開示、内容の訂正、追加または削除、
+      利用の停止、消去および第三者への提供の停止を請求することができます。
+      請求をご希望の場合は、第1条に記載のお問い合わせ窓口までご連絡ください。
+      ご本人であることを確認させていただいたうえで、法令に従い遅滞なく対応いたします。
+    </p>
+
+    <h3>第10条（本サービスの試算結果について）</h3>
+    <p>
+      本サービスが表示する試算結果は、利用者がご入力になった直近1ヶ月の電気料金に基づく簡易的な目安であり、
+      実際の削減額を保証するものではありません。実際の料金および削減効果は、契約プラン、契約電力、使用状況、
+      燃料費調整額、再生可能エネルギー発電促進賦課金等により変動します。
+      また、本サービスは電力契約の勧誘または媒介を目的とするものではありません。
+    </p>
+
+    <h3>第11条（本ポリシーの変更）</h3>
+    <p>
+      当社は、法令の変更または本サービスの内容の変更に伴い、本ポリシーを改定することがあります。
+      改定後の本ポリシーは、本ページに掲載した時点から効力を生じるものとします。
+    </p>
+
+    <h3>第12条（お問い合わせ）</h3>
+    <p>
+      本ポリシーおよび個人情報の取扱いに関するお問い合わせは、
+      <span class="todo">要記入：お問い合わせ用メールアドレス</span> までご連絡ください。
+      受付時間は <span class="todo">要記入：受付時間</span> です。
+    </p>
+
+    <footer class="foot">
+      以上<br>
+      <a href="./">&larr; かんたん電気代シミュレーションに戻る</a>
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>

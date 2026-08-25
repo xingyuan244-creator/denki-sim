@@ -208,6 +208,7 @@ ol.acts p{margin:0;font-size:13px;color:var(--muted);line-height:1.7}
 .field input:focus{outline:none;border-color:var(--trust);box-shadow:0 0 0 4px var(--trust-soft)}
 .agree{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin-top:16px;color:var(--text);cursor:pointer}
 .agree input{margin-top:5px;width:19px;height:19px;flex:none;accent-color:var(--trust)}
+.agree a{color:var(--trust-2);font-weight:800;text-underline-offset:3px}
 .autonomy{font-size:12.5px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
 .done{border:2px solid var(--money);background:var(--money-soft);border-radius:12px;padding:20px;text-align:center}
 .done .ttl{font-weight:800;font-size:17px;color:var(--money);margin-bottom:6px}
@@ -664,7 +665,7 @@ function renderResult(){
         '<li>しつこい営業のお電話はいたしません</li>' +
         '<li>ご希望がなければ、以降のご連絡は一切いたしません</li>' +
       '</ul>' +
-      '<label class="agree"><input type="checkbox" id="agree"><span>プライバシーポリシーに同意して送信します</span></label>' +
+      '<label class="agree"><input type="checkbox" id="agree"><span><a href="./privacy.html" id="policyLink" target="_blank" rel="noopener">プライバシーポリシー</a>に同意して送信します</span></label>' +
       '<div class="btnrow"><button class="btn" type="submit">無料で正確な試算を依頼する<span class="arw">&rarr;</span></button></div>' +
       '<div class="err" id="leadMsg" role="status"></div>' +
       '<p class="autonomy">ご入力は任意です。送信されなくても、結果はこのまま無料でご覧いただけます。判断はお客さまにお任せします。</p>' +
@@ -684,6 +685,8 @@ function renderResult(){
 
   var form = document.getElementById("leadForm");
   if(form) form.onsubmit = submitLead;
+  var pl = document.getElementById("policyLink");
+  if(pl) pl.addEventListener("click", function(e){ e.stopPropagation(); });
 
   var d = document.getElementById("disclaimer");
   d.hidden = false;
