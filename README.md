@@ -8,6 +8,7 @@
 | ファイル | 内容 | 公開 |
 |---|---|---|
 | `index.html` | シミュレーションサイト本体 | 公開ページ |
+| `anshin-terms/index.html` | 大和あんしんサポート利用規約（申込書のQRコードの飛び先） | 公開ページ |
 | `tools/qr.html` | QRコード作成＋印刷用POP／名刺カード生成（社内用） | 同じリポジトリのため閲覧可 |
 | `tools/gas-mail.gs` | 問い合わせをメール転送する Google Apps Script | 同上 |
 | `.nojekyll` | GitHub Pages の Jekyll 変換を無効化 | — |
